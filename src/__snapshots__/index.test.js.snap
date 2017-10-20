@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#TimeSync #addTimer should throw if for an invalid unit 1`] = `"unit must be a positive integer"`;
+
+exports[`#TimeSync #addTimer should throw if for an invalid unit 2`] = `"unit must be a positive integer"`;
+
+exports[`#TimeSync #addTimer should throw if for an invalid unit 3`] = `"unit must be a positive integer"`;
+
+exports[`#TimeSync #addTimer should throw if for an invalid unit 4`] = `"unit must be a positive integer"`;
+
+exports[`#TimeSync #addTimer should throw if for an invalid unit 5`] = `"unit must be a positive integer"`;
+
+exports[`#TimeSync #addTimer should throw if for an invalid unit 6`] = `"unit must be a positive integer"`;
+
+exports[`#TimeSync #addTimer should throw if for an invalid unit 7`] = `"unit must be a positive integer"`;
+
+exports[`#TimeSync #addTimer should throw if for an invalid unit 8`] = `"unit must be a positive integer"`;
+
+exports[`#TimeSync #addTimer should throw if for an unknown interval 1`] = `"interval must be one of TimeSync.SECONDS, TimeSync.MINUTES, TimeSync.HOURS or TimeSync.DAYS"`;
+
+exports[`#TimeSync #addTimer should throw if for an unknown interval 2`] = `"interval must be one of TimeSync.SECONDS, TimeSync.MINUTES, TimeSync.HOURS or TimeSync.DAYS"`;
+
+exports[`#TimeSync #addTimer should throw if for an unknown interval 3`] = `"interval must be one of TimeSync.SECONDS, TimeSync.MINUTES, TimeSync.HOURS or TimeSync.DAYS"`;
+
+exports[`#TimeSync #addTimer should throw if for an unknown interval 4`] = `"interval must be one of TimeSync.SECONDS, TimeSync.MINUTES, TimeSync.HOURS or TimeSync.DAYS"`;
+
+exports[`#TimeSync #addTimer should throw if for an unknown interval 5`] = `"interval must be one of TimeSync.SECONDS, TimeSync.MINUTES, TimeSync.HOURS or TimeSync.DAYS"`;
+
+exports[`#TimeSync #addTimer should throw if no callback is provided 1`] = `"You need to provide a callback as the first argument to addTimer"`;
