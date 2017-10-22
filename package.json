@@ -8,11 +8,8 @@
   "scripts": {
     "build": "rm -rf lib && babel src -d lib --ignore test.js && cp -R scripts .npmignore LICENSE package.json README.md lib",
     "prepublishOnly": "node ./scripts/ensure-publish-path",
-    "test": "jest",
-    "test-ci": "jest && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
-  },
-  "jest": {
-    "collectCoverage": true
+    "test": "jest --config .jest.json",
+    "test-ci": "jest --config .jest.ci.json && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "license": "MIT",
   "devDependencies": {
