@@ -1,5 +1,3 @@
-import { generate } from 'shortid';
-
 // Intervals
 const SECONDS = 's';
 const MINUTES = 'm';
@@ -16,6 +14,11 @@ const DEFAULT_TIMER_CONFIG = {
   interval: SECONDS,
   unit: 1
 };
+
+let lastId = 0;
+function generateId() {
+  return lastId++;
+}
 
 function validateConfig(timerConfig) {
   if (
@@ -137,11 +140,10 @@ class TimeSyncPrivate {
     this.revalidate();
   };
 
-
   addTimer = (callback, timerConfig = {}) => {
     validateAddTimerArgs(callback, timerConfig);
 
-    const id = generate();
+    const id = generateId();
     const newTimer = {
       ...DEFAULT_TIMER_CONFIG,
       ...timerConfig,
