@@ -17,12 +17,7 @@ const DEFAULT_TIMER_CONFIG = {
   unit: 1
 };
 
-
-function validateAddTimerArgs(callback, timerConfig) {
-  if (!callback) {
-    throw new Error('You need to provide a callback as the first argument to addTimer');
-  }
-
+function validateConfig(timerConfig) {
   if (
     typeof timerConfig.interval !== 'undefined' &&
     !Object.keys(INTERVALS).some(interval => interval === timerConfig.interval)
@@ -32,147 +27,114 @@ function validateAddTimerArgs(callback, timerConfig) {
 
   if (
     typeof timerConfig.unit !== 'undefined' &&
-    (!Number.isInteger(timerConfig.unit) ||
-    timerConfig.unit <= 0)
+    (!Number.isInteger(timerConfig.unit) || timerConfig.unit <= 0)
   ) {
     throw new Error('unit must be a positive integer');
   }
 }
 
-class TimeSyncPrivate {
-  timers = {};
-
-  currentTimeout;
-  lastTime;
-  nextTick;
-  nextTimers = [];
-
-  onTick = () => {
-    this.lastTime = Date.now();
-
-    this.nextTimers.forEach((timer) => {
-      timer.callback(this.lastTime);
-    });
-
-    this.calculateNextTimers();
+function validateAddTimerArgs(callback, timerConfig) {
+  if (!callback) {
+    throw new Error('You need to provide a callback as the first argument to addTimer');
   }
 
-  getNextTick = ({ interval, unit }) => {
-    let ms = 1000;
+  validateConfig(timerConfig);
+}
 
-    if (INTERVALS[interval] >= INTERVALS[MINUTES]) {
-      ms *= 60;
-    }
+function getMs({ interval, unit }) {
+  const intervalValue = INTERVALS[interval];
+  let ms = 1000;
 
-    if (INTERVALS[interval] >= INTERVALS[HOURS]) {
-      ms *= 60;
-    }
-
-    if (INTERVALS[interval] >= INTERVALS[DAYS]) {
-      ms *= 24;
-    }
-
-    ms *= unit;
-
-    const newTime = this.getLastTime() + ms;
-    const newTick = newTime - (newTime % ms);
-
-    return newTick;
+  if (intervalValue >= INTERVALS[MINUTES]) {
+    ms *= 60;
   }
 
-  calculateNextTimers = () => {
-    // Reset the next timers
-    this.nextTimers = [];
-    clearTimeout(this.currentTimeout);
+  if (intervalValue >= INTERVALS[HOURS]) {
+    ms *= 60;
+  }
 
-    // Check whether any timers are left
-    const timerIds = Object.keys(this.timers);
+  if (intervalValue >= INTERVALS[DAYS]) {
+    ms *= 24;
+  }
 
-    // Calculate the next timers
-    const now = Date.now();
-    const {
-      newNextTick,
-      newTimers
-    } = timerIds.reduce((map, timerId) => {
-      const timer = this.timers[timerId];
-      const timerTick = this.getNextTick(timer);
+  ms *= unit;
 
-      if (!map.newNextTick || map.newNextTick > timerTick) {
-        return {
-          newTimers: [timer],
-          newNextTick: timerTick
-        };
-      } else if (map.newNextTick === timerTick || timerTick <= now) {
-        map.newTimers.push(timer);
-      }
+  return ms;
+}
 
-      return map;
-    }, {});
+function roundTick(ms, tick) {
+  return tick - (tick % ms);
+}
 
-    this.nextTimers = newTimers || [];
+function getCurrentTick(ms) {
+  return roundTick(ms, Date.now());
+}
 
-    this.nextTick = newNextTick;
+function getNextTick({ ms }, time) {
+  const newTime = time + ms;
+  return roundTick(ms, newTime);
+}
 
-    if (newNextTick) {
-      const nextTickDelta = Math.max(this.nextTick - now, 0);
-      this.currentTimeout = setTimeout(this.onTick, nextTickDelta);
-    } else {
-      this.lastTime = null;
-    }
+function getUnixTimeStamp(tick) {
+  return Math.floor(tick / 1000);
+}
+
+function getCurrentTime(timerConfig = {}) {
+  validateConfig(timerConfig);
+
+  const config = {
+    ...DEFAULT_TIMER_CONFIG,
+    ...timerConfig
   };
 
-  checkForNextTick = (newTimer) => {
-    const newTimerNextTick = this.getNextTick(newTimer);
+  return getUnixTimeStamp(getCurrentTick(getMs(config)));
+}
 
-    if (!this.nextTick || newTimerNextTick < this.nextTick) {
-      clearTimeout(this.currentTimeout);
-
-      this.nextTick = newTimerNextTick;
-      const nextTickDelta = this.nextTick - Date.now();
-
-      this.currentTimeout = setTimeout(this.onTick, nextTickDelta);
-      this.nextTimers = [newTimer];
-    } else if (newTimerNextTick === this.nextTick) {
-      this.nextTimers.push(newTimer);
-    }
-  }
+class TimeSyncPrivate {
+  timers = {};
+  currentTimeout;
+  nextTick;
 
   revalidate = () => {
-    this.calculateNextTimers();
+    clearTimeout(this.currentTimeout);
+    const now = Date.now();
+
+    this.nextTick = Object.keys(this.timers).reduce((prev, timerId) => {
+      const timer = this.timers[timerId];
+
+      if (timer.nextTick <= now) {
+        const usedTime = roundTick(timer.ms, now);
+        timer.callback(getUnixTimeStamp(usedTime));
+        timer.nextTick = getNextTick(timer, now);
+      }
+
+      if (!prev || prev > timer.nextTick) {
+        return timer.nextTick;
+      }
+      return prev;
+    }, null);
+
+    if (this.nextTick) {
+      const nextTickDelta = this.nextTick - Date.now();
+      this.currentTimeout = setTimeout(this.revalidate, nextTickDelta);
+    }
   };
 
   removeTimer = (id) => {
-    let timerIndex = null;
-    this.nextTimers.some((timer, index) => {
-      if (timer.id === id) {
-        timerIndex = index;
-        return true;
-      }
-      return false;
-    });
+    const timer = this.timers[id];
+    if (!timer) {
+      return;
+    }
 
     delete this.timers[id];
-
-    if (timerIndex !== null) {
-      // Check if timer is the only timer that is being called on the next tick
-      if (this.nextTimers.length > 1) {
-        // There are other timers that will be called on the next tick.
-        // We only need to remove the current timer
-        this.nextTimers.splice(timerIndex, 1);
-      } else {
-        // There are no other timers, therefore we can calculate the next
-        // called timers from the remaining timers.
-        this.calculateNextTimers();
-      }
+    if (timer.nextTick === this.nextTick) {
+      this.revalidate();
     }
-  }
+  };
 
   removeAllTimers = () => {
-    clearTimeout(this.currentTimeout);
     this.timers = {};
-    this.nextTimers = [];
-    this.nextTick = null;
-    this.lastTime = null;
+    this.revalidate();
   };
 
 
@@ -186,17 +148,16 @@ class TimeSyncPrivate {
       callback,
       id
     };
+    newTimer.ms = getMs(newTimer);
+    newTimer.nextTick = getNextTick(newTimer, Date.now());
 
     this.timers[id] = newTimer;
-    this.checkForNextTick(newTimer);
-    return () => this.removeTimer(id);
-  }
 
-  getLastTime = () => {
-    if (!this.lastTime) {
-      this.lastTime = Date.now();
+    if (!this.nextTick || newTimer.nextTick < this.nextTick) {
+      this.revalidate();
     }
-    return this.lastTime;
+
+    return () => this.removeTimer(id);
   }
 }
 
@@ -206,11 +167,12 @@ export default class TimeSync {
   static HOURS = HOURS;
   static DAYS = DAYS;
 
+  static getCurrentTime = getCurrentTime;
+
   constructor() {
     const instance = new TimeSyncPrivate();
 
     this.addTimer = instance.addTimer;
-    this.getLastTime = instance.getLastTime;
     this.revalidate = instance.revalidate;
     this.removeAllTimers = instance.removeAllTimers;
   }

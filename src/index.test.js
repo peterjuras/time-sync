@@ -6,9 +6,7 @@ describe('#TimeSync', () => {
   let clock;
 
   beforeEach(() => {
-    clock = lolex.install({
-      now: 1
-    });
+    clock = lolex.install({ now: 1 });
   });
 
   afterEach(() => {
@@ -87,6 +85,10 @@ describe('#TimeSync', () => {
       })).toThrowErrorMatchingSnapshot();
 
       expect(() => instance.addTimer(jest.fn(), {
+        unit: '15'
+      })).toThrowErrorMatchingSnapshot();
+
+      expect(() => instance.addTimer(jest.fn(), {
         unit: 250.291
       })).toThrowErrorMatchingSnapshot();
 
@@ -126,7 +128,7 @@ describe('#TimeSync', () => {
       clock.tick((1000 * 2) - 2);
 
       expect(mock).toHaveBeenCalledTimes(1);
-      expect(mock).toHaveBeenLastCalledWith(1000);
+      expect(mock).toHaveBeenLastCalledWith(1);
     });
 
     it('should correctly callback for a minute timer', () => {
@@ -137,7 +139,7 @@ describe('#TimeSync', () => {
       clock.tick((60000 * 2) - 2);
 
       expect(mock).toHaveBeenCalledTimes(1);
-      expect(mock).toHaveBeenLastCalledWith(60000);
+      expect(mock).toHaveBeenLastCalledWith(60);
     });
 
     it('should correctly callback for a hour timer', () => {
@@ -148,7 +150,7 @@ describe('#TimeSync', () => {
       clock.tick((1000 * 60 * 60 * 2) - 2);
 
       expect(mock).toHaveBeenCalledTimes(1);
-      expect(mock).toHaveBeenLastCalledWith(1000 * 60 * 60);
+      expect(mock).toHaveBeenLastCalledWith(60 * 60);
     });
 
     it('should correctly callback for a day timer', () => {
@@ -159,7 +161,7 @@ describe('#TimeSync', () => {
       clock.tick((1000 * 60 * 60 * 24 * 2) - 2);
 
       expect(mock).toHaveBeenCalledTimes(1);
-      expect(mock).toHaveBeenLastCalledWith(1000 * 60 * 60 * 24);
+      expect(mock).toHaveBeenLastCalledWith(60 * 60 * 24);
     });
 
     it('should work with a mix of timers', () => {
@@ -171,9 +173,15 @@ describe('#TimeSync', () => {
       instance.addTimer(mockMinute, { interval: TimeSync.MINUTES });
 
       clock.tick((1000 * 60) - 1);
+
       expect(mockSecond).toHaveBeenCalledTimes(60);
+      expect(mockSecond.mock.calls).toMatchSnapshot();
+
       expect(mockTenSeconds).toHaveBeenCalledTimes(6);
+      expect(mockTenSeconds.mock.calls).toMatchSnapshot();
+
       expect(mockMinute).toHaveBeenCalledTimes(1);
+      expect(mockMinute.mock.calls).toMatchSnapshot();
     });
 
     it('should clean up timeouts if the last timer is removed', () => {
@@ -186,36 +194,6 @@ describe('#TimeSync', () => {
 
       clock.tick(1000);
       expect(mock).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('#getLastTime', () => {
-    it('should be exported correctly', () => {
-      expect(instance.getLastTime).toBeInstanceOf(Function);
-    });
-
-    it('should return the correct time if it has not been initialized yet', () => {
-      const now = Date.now();
-
-      expect(instance.getLastTime()).toBe(now);
-
-      clock.tick(50);
-
-      expect(instance.getLastTime()).toBe(now);
-    });
-
-    it('should return the correct time if it has been advanced by a timer', () => {
-      const testTime = Date.now();
-      expect(instance.getLastTime()).toBe(testTime);
-      clock.tick(100);
-
-      const mock = jest.fn();
-      instance.addTimer(mock);
-      clock.tick(1000);
-
-      expect(instance.getLastTime()).toBe(1000);
-      expect(mock).toHaveBeenCalledTimes(1);
-      expect(mock).toHaveBeenLastCalledWith(instance.getLastTime());
     });
 
     it('should correctly remove timer if it schedules for the next tick', () => {
@@ -252,6 +230,34 @@ describe('#TimeSync', () => {
 
       instance.removeAllTimers();
       ref();
+    });
+
+    it('removing a timer should not throw if it is called multiple times', () => {
+      const mock = jest.fn();
+      const ref = instance.addTimer(mock);
+
+      ref();
+      ref();
+      ref();
+    });
+  });
+
+  describe('#getCurrentTime', () => {
+    it('should be exported correctly', () => {
+      expect(TimeSync.getCurrentTime).toBeInstanceOf(Function);
+    });
+
+    it('should give the correctly rounded value', () => {
+      expect(TimeSync.getCurrentTime()).toBe(0);
+      clock.tick(1250);
+      expect(TimeSync.getCurrentTime()).toBe(1);
+    });
+
+    it('should work for defined timer configurations', () => {
+      const timerConfig = { unit: 90, interval: TimeSync.MINUTES };
+      expect(TimeSync.getCurrentTime(timerConfig)).toBe(0);
+      clock.tick(1000 * 60 * 60 * 2);
+      expect(TimeSync.getCurrentTime(timerConfig)).toBe(60 * 90);
     });
   });
 
@@ -294,29 +300,6 @@ describe('#TimeSync', () => {
       expect(mockMinute).toHaveBeenCalledTimes(1);
     });
 
-    it('should revalidate added timers', () => {
-      const mock1 = jest.fn();
-      const mock2 = jest.fn();
-      instance.addTimer(mock1);
-
-      clock.setSystemTime(1250);
-      expect(mock1).toHaveBeenCalledTimes(0);
-      expect(mock2).toHaveBeenCalledTimes(0);
-
-      instance.addTimer(mock2);
-      expect(mock1).toHaveBeenCalledTimes(0);
-      expect(mock2).toHaveBeenCalledTimes(0);
-
-      instance.revalidate();
-      clock.tick(1);
-      expect(mock1).toHaveBeenCalledTimes(1);
-      expect(mock2).toHaveBeenCalledTimes(1);
-
-      clock.tick(749);
-      expect(mock1).toHaveBeenCalledTimes(2);
-      expect(mock2).toHaveBeenCalledTimes(2);
-    });
-
     it('should revalidate even if next timer has not fired yet', () => {
       const mock = jest.fn();
       instance.addTimer(mock);
@@ -326,7 +309,7 @@ describe('#TimeSync', () => {
 
       clock.tick(750);
       expect(mock).toHaveBeenCalledTimes(1);
-      expect(mock).toHaveBeenLastCalledWith(1000);
+      expect(mock).toHaveBeenLastCalledWith(1);
     });
 
     it('should resync automatically after any timer is fired', () => {
@@ -338,11 +321,24 @@ describe('#TimeSync', () => {
       instance.addTimer(mock3, { unit: 2 });
 
       clock.setSystemTime(2500);
-      clock.tick();
+      clock.tick(999);
 
       expect(mock1).toHaveBeenCalledTimes(1);
       expect(mock2).toHaveBeenCalledTimes(1);
       expect(mock3).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not automatically revalidate after a future timer has been removed', () => {
+      const mock1 = jest.fn();
+      const mock2 = jest.fn();
+
+      const ref = instance.addTimer(mock1, { interval: TimeSync.MINUTES });
+      instance.addTimer(mock2);
+
+      clock.setSystemTime(1250);
+      ref();
+
+      expect(mock2).toHaveBeenCalledTimes(0);
     });
   });
 });
