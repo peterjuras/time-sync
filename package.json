@@ -8,13 +8,11 @@
   "scripts": {
     "build": "rm -rf lib && babel src -d lib --ignore test.js && cp -R scripts .npmignore LICENSE package.json README.md lib",
     "prepublishOnly": "node ./scripts/ensure-publish-path",
-    "test": "jest"
+    "test": "jest",
+    "test-ci": "jest && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "jest": {
-    "collectCoverage": true,
-    "coverageReporters": [
-      "text"
-    ]
+    "collectCoverage": true
   },
   "license": "MIT",
   "devDependencies": {
@@ -23,6 +21,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "coveralls": "^3.0.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
