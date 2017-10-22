@@ -1,7 +1,7 @@
 {
   "plugins": [
     "transform-class-properties",
-    ["transform-object-rest-spread", { "useBuiltIns": false }]
+    ["transform-object-rest-spread", { "useBuiltIns": true }]
   ],
   "presets": [
     [
