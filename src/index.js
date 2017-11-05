@@ -177,5 +177,6 @@ export default class TimeSync {
     this.addTimer = instance.addTimer;
     this.revalidate = instance.revalidate;
     this.removeAllTimers = instance.removeAllTimers;
+    this.getCurrentTime = getCurrentTime;
   }
 }
