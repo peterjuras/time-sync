@@ -20,8 +20,6 @@ jobs:
           name: Tests
           command: yarn test-ci
           environment:
-            JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
+            JEST_JUNIT_OUTPUT: "reports/junit/jest/js-test-results.xml"
       - store_test_results:
-          path: reports/junit
-      - store_artifacts:
           path: reports/junit
