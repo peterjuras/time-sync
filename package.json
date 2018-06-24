@@ -10,7 +10,7 @@
     "prepublishOnly": "node ./scripts/ensure-publish-path",
     "lint": "eslint src/**/*.js",
     "test": "jest --config .jest.json",
-    "test-ci": "jest --config .jest.ci.json && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "test-ci": "jest --ci --runInBand --config .jest.ci.json && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "license": "MIT",
   "devDependencies": {
@@ -25,6 +25,7 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.12.0",
     "jest": "^23.1.0",
+    "jest-junit": "^5.1.0",
     "lolex": "^2.7.0"
   },
   "dependencies": {}

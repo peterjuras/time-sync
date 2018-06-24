@@ -1,4 +1,5 @@
 {
   "collectCoverage": true,
-  "coverageReporters": ["lcov"]
+  "coverageReporters": ["lcov"],
+  "testResultsProcessor": "jest-junit"
 }
