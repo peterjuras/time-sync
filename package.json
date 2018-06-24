@@ -8,22 +8,24 @@
   "scripts": {
     "build": "rm -rf lib && babel src -d lib --ignore test.js && cp -R scripts .npmignore LICENSE package.json README.md lib",
     "prepublishOnly": "node ./scripts/ensure-publish-path",
+    "lint": "eslint src/**/*.js",
     "test": "jest --config .jest.json",
     "test-ci": "jest --config .jest.ci.json && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.0.1",
+    "babel-eslint": "^8.2.5",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "coveralls": "^3.0.0",
-    "eslint": "^4.9.0",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0",
-    "jest": "^22.0.4",
-    "lolex": "^2.1.3"
+    "babel-preset-env": "^1.7.0",
+    "coveralls": "^3.0.1",
+    "eslint": "^5.0.0",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.12.0",
+    "jest": "^23.1.0",
+    "lolex": "^2.7.0"
   },
   "dependencies": {}
 }

@@ -1,7 +1,7 @@
-import TimeSync from './index';
-import lolex from 'lolex';
+import TimeSync from "./index";
+import lolex from "lolex";
 
-describe('#TimeSync', () => {
+describe("#TimeSync", () => {
   const instance = new TimeSync();
   let clock;
 
@@ -14,98 +14,126 @@ describe('#TimeSync', () => {
     instance.removeAllTimers();
   });
 
-  it('should be exported correctly', () => {
+  it("should be exported correctly", () => {
     expect(instance).toBeInstanceOf(TimeSync);
   });
 
-  describe('#constants', () => {
-    it('SECONDS should be exported correctly', () => {
-      expect(TimeSync.SECONDS).toBe('s');
+  describe("#constants", () => {
+    it("SECONDS should be exported correctly", () => {
+      expect(TimeSync.SECONDS).toBe("s");
     });
 
-    it('MINUTES should be exported correctly', () => {
-      expect(TimeSync.MINUTES).toBe('m');
+    it("MINUTES should be exported correctly", () => {
+      expect(TimeSync.MINUTES).toBe("m");
     });
 
-    it('HOURS should be exported correctly', () => {
-      expect(TimeSync.HOURS).toBe('h');
+    it("HOURS should be exported correctly", () => {
+      expect(TimeSync.HOURS).toBe("h");
     });
 
-    it('DAYS should be exported correctly', () => {
-      expect(TimeSync.DAYS).toBe('d');
+    it("DAYS should be exported correctly", () => {
+      expect(TimeSync.DAYS).toBe("d");
     });
   });
 
-  describe('#addTimer', () => {
-    it('should be exported correctly', () => {
+  describe("#addTimer", () => {
+    it("should be exported correctly", () => {
       expect(instance.addTimer).toBeInstanceOf(Function);
     });
 
-    it('should throw if no callback is provided', () => {
+    it("should throw if no callback is provided", () => {
       expect(instance.addTimer).toThrowErrorMatchingSnapshot();
     });
 
-    it('should throw if for an unknown interval', () => {
-      expect(() => instance.addTimer(jest.fn(), {
-        interval: []
-      })).toThrowErrorMatchingSnapshot();
+    it("should throw if for an unknown interval", () => {
+      expect(() =>
+        instance.addTimer(jest.fn(), {
+          interval: []
+        })
+      ).toThrowErrorMatchingSnapshot();
 
-      expect(() => instance.addTimer(jest.fn(), {
-        interval: {}
-      })).toThrowErrorMatchingSnapshot();
+      expect(() =>
+        instance.addTimer(jest.fn(), {
+          interval: {}
+        })
+      ).toThrowErrorMatchingSnapshot();
 
-      expect(() => instance.addTimer(jest.fn(), {
-        interval: 123
-      })).toThrowErrorMatchingSnapshot();
+      expect(() =>
+        instance.addTimer(jest.fn(), {
+          interval: 123
+        })
+      ).toThrowErrorMatchingSnapshot();
 
-      expect(() => instance.addTimer(jest.fn(), {
-        interval: ''
-      })).toThrowErrorMatchingSnapshot();
+      expect(() =>
+        instance.addTimer(jest.fn(), {
+          interval: ""
+        })
+      ).toThrowErrorMatchingSnapshot();
 
-      expect(() => instance.addTimer(jest.fn(), {
-        interval: 'a'
-      })).toThrowErrorMatchingSnapshot();
+      expect(() =>
+        instance.addTimer(jest.fn(), {
+          interval: "a"
+        })
+      ).toThrowErrorMatchingSnapshot();
     });
 
-    it('should throw if for an invalid unit', () => {
-      expect(() => instance.addTimer(jest.fn(), {
-        unit: []
-      })).toThrowErrorMatchingSnapshot();
+    it("should throw if for an invalid unit", () => {
+      expect(() =>
+        instance.addTimer(jest.fn(), {
+          unit: []
+        })
+      ).toThrowErrorMatchingSnapshot();
 
-      expect(() => instance.addTimer(jest.fn(), {
-        unit: {}
-      })).toThrowErrorMatchingSnapshot();
+      expect(() =>
+        instance.addTimer(jest.fn(), {
+          unit: {}
+        })
+      ).toThrowErrorMatchingSnapshot();
 
-      expect(() => instance.addTimer(jest.fn(), {
-        unit: ''
-      })).toThrowErrorMatchingSnapshot();
+      expect(() =>
+        instance.addTimer(jest.fn(), {
+          unit: ""
+        })
+      ).toThrowErrorMatchingSnapshot();
 
-      expect(() => instance.addTimer(jest.fn(), {
-        unit: 'a'
-      })).toThrowErrorMatchingSnapshot();
+      expect(() =>
+        instance.addTimer(jest.fn(), {
+          unit: "a"
+        })
+      ).toThrowErrorMatchingSnapshot();
 
-      expect(() => instance.addTimer(jest.fn(), {
-        unit: '15'
-      })).toThrowErrorMatchingSnapshot();
+      expect(() =>
+        instance.addTimer(jest.fn(), {
+          unit: "15"
+        })
+      ).toThrowErrorMatchingSnapshot();
 
-      expect(() => instance.addTimer(jest.fn(), {
-        unit: 250.291
-      })).toThrowErrorMatchingSnapshot();
+      expect(() =>
+        instance.addTimer(jest.fn(), {
+          unit: 250.291
+        })
+      ).toThrowErrorMatchingSnapshot();
 
-      expect(() => instance.addTimer(jest.fn(), {
-        unit: 0
-      })).toThrowErrorMatchingSnapshot();
+      expect(() =>
+        instance.addTimer(jest.fn(), {
+          unit: 0
+        })
+      ).toThrowErrorMatchingSnapshot();
 
-      expect(() => instance.addTimer(jest.fn(), {
-        unit: -12
-      })).toThrowErrorMatchingSnapshot();
+      expect(() =>
+        instance.addTimer(jest.fn(), {
+          unit: -12
+        })
+      ).toThrowErrorMatchingSnapshot();
 
-      expect(() => instance.addTimer(jest.fn(), {
-        unit: -12.28
-      })).toThrowErrorMatchingSnapshot();
+      expect(() =>
+        instance.addTimer(jest.fn(), {
+          unit: -12.28
+        })
+      ).toThrowErrorMatchingSnapshot();
     });
 
-    it('should add a second timer by default', () => {
+    it("should add a second timer by default", () => {
       const mock = jest.fn();
       instance.addTimer(mock);
 
@@ -120,51 +148,51 @@ describe('#TimeSync', () => {
       expect(mock).toHaveBeenCalledTimes(1);
     });
 
-    it('should correctly callback for a second timer', () => {
+    it("should correctly callback for a second timer", () => {
       const mock = jest.fn();
       instance.addTimer(mock, { interval: TimeSync.SECONDS });
 
       expect(mock).toHaveBeenCalledTimes(0);
-      clock.tick((1000 * 2) - 2);
+      clock.tick(1000 * 2 - 2);
 
       expect(mock).toHaveBeenCalledTimes(1);
       expect(mock).toHaveBeenLastCalledWith(1);
     });
 
-    it('should correctly callback for a minute timer', () => {
+    it("should correctly callback for a minute timer", () => {
       const mock = jest.fn();
       instance.addTimer(mock, { interval: TimeSync.MINUTES });
 
       expect(mock).toHaveBeenCalledTimes(0);
-      clock.tick((60000 * 2) - 2);
+      clock.tick(60000 * 2 - 2);
 
       expect(mock).toHaveBeenCalledTimes(1);
       expect(mock).toHaveBeenLastCalledWith(60);
     });
 
-    it('should correctly callback for a hour timer', () => {
+    it("should correctly callback for a hour timer", () => {
       const mock = jest.fn();
       instance.addTimer(mock, { interval: TimeSync.HOURS });
 
       expect(mock).toHaveBeenCalledTimes(0);
-      clock.tick((1000 * 60 * 60 * 2) - 2);
+      clock.tick(1000 * 60 * 60 * 2 - 2);
 
       expect(mock).toHaveBeenCalledTimes(1);
       expect(mock).toHaveBeenLastCalledWith(60 * 60);
     });
 
-    it('should correctly callback for a day timer', () => {
+    it("should correctly callback for a day timer", () => {
       const mock = jest.fn();
       instance.addTimer(mock, { interval: TimeSync.DAYS });
 
       expect(mock).toHaveBeenCalledTimes(0);
-      clock.tick((1000 * 60 * 60 * 24 * 2) - 2);
+      clock.tick(1000 * 60 * 60 * 24 * 2 - 2);
 
       expect(mock).toHaveBeenCalledTimes(1);
       expect(mock).toHaveBeenLastCalledWith(60 * 60 * 24);
     });
 
-    it('should work with a mix of timers', () => {
+    it("should work with a mix of timers", () => {
       const mockSecond = jest.fn();
       const mockTenSeconds = jest.fn();
       const mockMinute = jest.fn();
@@ -172,7 +200,7 @@ describe('#TimeSync', () => {
       instance.addTimer(mockTenSeconds, { unit: 10 });
       instance.addTimer(mockMinute, { interval: TimeSync.MINUTES });
 
-      clock.tick((1000 * 60) - 1);
+      clock.tick(1000 * 60 - 1);
 
       expect(mockSecond).toHaveBeenCalledTimes(60);
       expect(mockSecond.mock.calls).toMatchSnapshot();
@@ -184,7 +212,7 @@ describe('#TimeSync', () => {
       expect(mockMinute.mock.calls).toMatchSnapshot();
     });
 
-    it('should clean up timeouts if the last timer is removed', () => {
+    it("should clean up timeouts if the last timer is removed", () => {
       const mock = jest.fn();
       const ref = instance.addTimer(mock);
 
@@ -196,7 +224,7 @@ describe('#TimeSync', () => {
       expect(mock).toHaveBeenCalledTimes(1);
     });
 
-    it('should correctly remove timer if it schedules for the next tick', () => {
+    it("should correctly remove timer if it schedules for the next tick", () => {
       const mock1 = jest.fn();
       const mock2 = jest.fn();
       const mock3 = jest.fn();
@@ -207,7 +235,7 @@ describe('#TimeSync', () => {
       instance.addTimer(mock4);
 
       // Advance to just before two minute
-      clock.tick((1000 * 60) - 2);
+      clock.tick(1000 * 60 - 2);
 
       expect(mock1).toHaveBeenCalledTimes(59);
       expect(mock2).toHaveBeenCalledTimes(59);
@@ -224,7 +252,7 @@ describe('#TimeSync', () => {
       expect(mock4).toHaveBeenCalledTimes(60);
     });
 
-    it('removing a timer should not throw if it is called after all timers have been removed', () => {
+    it("removing a timer should not throw if it is called after all timers have been removed", () => {
       const mock = jest.fn();
       const ref = instance.addTimer(mock);
 
@@ -232,7 +260,7 @@ describe('#TimeSync', () => {
       ref();
     });
 
-    it('removing a timer should not throw if it is called multiple times', () => {
+    it("removing a timer should not throw if it is called multiple times", () => {
       const mock = jest.fn();
       const ref = instance.addTimer(mock);
 
@@ -242,18 +270,18 @@ describe('#TimeSync', () => {
     });
   });
 
-  describe('#getCurrentTime', () => {
-    it('should be exported correctly', () => {
+  describe("#getCurrentTime", () => {
+    it("should be exported correctly", () => {
       expect(TimeSync.getCurrentTime).toBeInstanceOf(Function);
     });
 
-    it('should give the correctly rounded value', () => {
+    it("should give the correctly rounded value", () => {
       expect(TimeSync.getCurrentTime()).toBe(0);
       clock.tick(1250);
       expect(TimeSync.getCurrentTime()).toBe(1);
     });
 
-    it('should work for defined timer configurations', () => {
+    it("should work for defined timer configurations", () => {
       const timerConfig = { unit: 90, interval: TimeSync.MINUTES };
       expect(TimeSync.getCurrentTime(timerConfig)).toBe(0);
       clock.tick(1000 * 60 * 60 * 2);
@@ -261,18 +289,18 @@ describe('#TimeSync', () => {
     });
   });
 
-  describe('#removeAllTimers', () => {
-    it('should be exported correctly', () => {
+  describe("#removeAllTimers", () => {
+    it("should be exported correctly", () => {
       expect(instance.removeAllTimers).toBeInstanceOf(Function);
     });
   });
 
-  describe('#revalidate', () => {
-    it('should be exported correctly', () => {
+  describe("#revalidate", () => {
+    it("should be exported correctly", () => {
       expect(instance.revalidate).toBeInstanceOf(Function);
     });
 
-    it('should fire all necessary timers if system clock has changed', () => {
+    it("should fire all necessary timers if system clock has changed", () => {
       const mockSecond = jest.fn();
       const mockTenSeconds = jest.fn();
       const mockMinute = jest.fn();
@@ -300,7 +328,7 @@ describe('#TimeSync', () => {
       expect(mockMinute).toHaveBeenCalledTimes(1);
     });
 
-    it('should revalidate even if next timer has not fired yet', () => {
+    it("should revalidate even if next timer has not fired yet", () => {
       const mock = jest.fn();
       instance.addTimer(mock);
 
@@ -312,7 +340,7 @@ describe('#TimeSync', () => {
       expect(mock).toHaveBeenLastCalledWith(1);
     });
 
-    it('should resync automatically after any timer is fired', () => {
+    it("should resync automatically after any timer is fired", () => {
       const mock1 = jest.fn();
       const mock2 = jest.fn();
       const mock3 = jest.fn();
@@ -328,7 +356,7 @@ describe('#TimeSync', () => {
       expect(mock3).toHaveBeenCalledTimes(1);
     });
 
-    it('should not automatically revalidate after a future timer has been removed', () => {
+    it("should not automatically revalidate after a future timer has been removed", () => {
       const mock1 = jest.fn();
       const mock2 = jest.fn();
 

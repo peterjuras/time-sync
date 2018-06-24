@@ -1,8 +1,8 @@
 // Intervals
-const SECONDS = 's';
-const MINUTES = 'm';
-const HOURS = 'h';
-const DAYS = 'd';
+const SECONDS = "s";
+const MINUTES = "m";
+const HOURS = "h";
+const DAYS = "d";
 const INTERVALS = {
   [SECONDS]: 1,
   [MINUTES]: 2,
@@ -22,23 +22,27 @@ function generateId() {
 
 function validateConfig(timerConfig) {
   if (
-    typeof timerConfig.interval !== 'undefined' &&
+    typeof timerConfig.interval !== "undefined" &&
     !Object.keys(INTERVALS).some(interval => interval === timerConfig.interval)
   ) {
-    throw new Error('interval must be one of TimeSync.SECONDS, TimeSync.MINUTES, TimeSync.HOURS or TimeSync.DAYS');
+    throw new Error(
+      "interval must be one of TimeSync.SECONDS, TimeSync.MINUTES, TimeSync.HOURS or TimeSync.DAYS"
+    );
   }
 
   if (
-    typeof timerConfig.unit !== 'undefined' &&
+    typeof timerConfig.unit !== "undefined" &&
     (!Number.isInteger(timerConfig.unit) || timerConfig.unit <= 0)
   ) {
-    throw new Error('unit must be a positive integer');
+    throw new Error("unit must be a positive integer");
   }
 }
 
 function validateAddTimerArgs(callback, timerConfig) {
   if (!callback) {
-    throw new Error('You need to provide a callback as the first argument to addTimer');
+    throw new Error(
+      "You need to provide a callback as the first argument to addTimer"
+    );
   }
 
   validateConfig(timerConfig);
@@ -95,7 +99,9 @@ function getCurrentTime(timerConfig = {}) {
 
 class TimeSyncPrivate {
   timers = {};
+
   currentTimeout;
+
   nextTick;
 
   revalidate = () => {
@@ -123,7 +129,7 @@ class TimeSyncPrivate {
     }
   };
 
-  removeTimer = (id) => {
+  removeTimer = id => {
     const timer = this.timers[id];
     if (!timer) {
       return;
@@ -160,13 +166,16 @@ class TimeSyncPrivate {
     }
 
     return () => this.removeTimer(id);
-  }
+  };
 }
 
 export default class TimeSync {
   static SECONDS = SECONDS;
+
   static MINUTES = MINUTES;
+
   static HOURS = HOURS;
+
   static DAYS = DAYS;
 
   static getCurrentTime = getCurrentTime;
