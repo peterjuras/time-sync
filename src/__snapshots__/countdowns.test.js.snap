@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#countdowns #createCountdown adding a countdown should throw if the date is in the past 1`] = `"until property needs to be in the future. Please ensure you are using a millisecond timestamp!"`;
+
+exports[`#countdowns #createCountdown adding a countdown should throw if the date is in the past 2`] = `"until property needs to be in the future. Please ensure you are using a millisecond timestamp!"`;
+
+exports[`#countdowns #createCountdown should throw if for an invalid or missing until 1`] = `"until must be an integer"`;
+
+exports[`#countdowns #createCountdown should throw if for an invalid or missing until 2`] = `"until must be an integer"`;
+
+exports[`#countdowns #createCountdown should throw if for an invalid or missing until 3`] = `"until must be an integer"`;
+
+exports[`#countdowns #createCountdown should throw if for an invalid or missing until 4`] = `"until must be an integer"`;
+
+exports[`#countdowns #createCountdown should throw if for an invalid or missing until 5`] = `"until must be an integer"`;
+
+exports[`#countdowns #createCountdown should throw if for an invalid or missing until 6`] = `"until must be an integer"`;
+
+exports[`#countdowns #createCountdown should throw if for an invalid or missing until 7`] = `"until must be an integer"`;
+
+exports[`#countdowns #createCountdown should throw if for an unknown interval 1`] = `"interval must be one of TimeSync.SECONDS, TimeSync.MINUTES, TimeSync.HOURS or TimeSync.DAYS"`;
+
+exports[`#countdowns #createCountdown should throw if for an unknown interval 2`] = `"interval must be one of TimeSync.SECONDS, TimeSync.MINUTES, TimeSync.HOURS or TimeSync.DAYS"`;
+
+exports[`#countdowns #createCountdown should throw if for an unknown interval 3`] = `"interval must be one of TimeSync.SECONDS, TimeSync.MINUTES, TimeSync.HOURS or TimeSync.DAYS"`;
+
+exports[`#countdowns #createCountdown should throw if for an unknown interval 4`] = `"interval must be one of TimeSync.SECONDS, TimeSync.MINUTES, TimeSync.HOURS or TimeSync.DAYS"`;
+
+exports[`#countdowns #createCountdown should throw if for an unknown interval 5`] = `"interval must be one of TimeSync.SECONDS, TimeSync.MINUTES, TimeSync.HOURS or TimeSync.DAYS"`;
+
+exports[`#countdowns #createCountdown should throw if no callback is provided 1`] = `"You need to provide a callback as the first argument to createCountdown"`;
+
+exports[`#countdowns #createCountdown should work with a mix of countdowns 1`] = `
+Array [
+  Array [
+    1,
+  ],
+  Array [
+    0,
+  ],
+]
+`;
+
+exports[`#countdowns #createCountdown should work with a mix of countdowns 2`] = `
+Array [
+  Array [
+    2,
+  ],
+  Array [
+    1,
+  ],
+  Array [
+    0,
+  ],
+]
+`;
+
+exports[`#countdowns #createCountdown should work with a mix of countdowns 3`] = `
+Array [
+  Array [
+    0,
+  ],
+]
+`;
+
+exports[`#countdowns #getTimeLeft should throw if there is no until property 1`] = `"until must be an integer"`;
+
+exports[`#countdowns #getTimeLeft should throw when no configuration object is passed 1`] = `"You must pass a valid countdown configuration object"`;
