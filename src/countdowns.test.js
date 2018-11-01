@@ -144,14 +144,17 @@ describe("#countdowns", () => {
       const mock = jest.fn();
       instance.createCountdown(mock, {
         interval: TimeSync.MINUTES,
-        until: 1000 * 240 + 10000
+        until: 1000 * 3 * 60 + 10000
       });
 
       expect(mock).toHaveBeenCalledTimes(0);
       clock.tick(60000 * 2 - 2);
 
+      expect(mock).toHaveBeenCalledTimes(1);
+      expect(mock).toHaveBeenLastCalledWith(2);
+      clock.tick(1);
       expect(mock).toHaveBeenCalledTimes(2);
-      expect(mock).toHaveBeenLastCalledWith(3);
+      expect(mock).toHaveBeenLastCalledWith(1);
     });
 
     it("should correctly callback for an hour countdown", () => {
@@ -164,8 +167,11 @@ describe("#countdowns", () => {
       expect(mock).toHaveBeenCalledTimes(0);
       clock.tick(1000 * 60 * 60 * 2 - 2);
 
-      expect(mock).toHaveBeenCalledTimes(2);
+      expect(mock).toHaveBeenCalledTimes(1);
       expect(mock).toHaveBeenLastCalledWith(3);
+      clock.tick(1);
+      expect(mock).toHaveBeenCalledTimes(2);
+      expect(mock).toHaveBeenLastCalledWith(2);
     });
 
     it("should correctly callback for a day timer", () => {
@@ -178,8 +184,11 @@ describe("#countdowns", () => {
       expect(mock).toHaveBeenCalledTimes(0);
       clock.tick(1000 * 60 * 60 * 24 * 2 - 2);
 
-      expect(mock).toHaveBeenCalledTimes(2);
+      expect(mock).toHaveBeenCalledTimes(1);
       expect(mock).toHaveBeenLastCalledWith(3);
+      clock.tick(1);
+      expect(mock).toHaveBeenCalledTimes(2);
+      expect(mock).toHaveBeenLastCalledWith(2);
     });
 
     it("should work with a mix of countdowns", () => {

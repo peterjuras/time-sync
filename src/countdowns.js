@@ -66,10 +66,10 @@ function getNextTickDelta({ ms, until }, time) {
   if (timeMod === untilMod) {
     return ms;
   }
-  if (timeMod > untilMod) {
-    return ms - timeMod;
+  if (timeMod < untilMod) {
+    return untilMod - timeMod;
   }
-  return untilMod - timeMod;
+  return untilMod + ms - timeMod;
 }
 
 function validateCreateCountdownArgs(callback, countdownConfig) {
