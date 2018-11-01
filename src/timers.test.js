@@ -6,7 +6,9 @@ describe("#timers", () => {
   let clock;
 
   beforeEach(() => {
-    clock = lolex.install({ now: 10001 });
+    clock = lolex.install({
+      now: 10001
+    });
   });
 
   afterEach(() => {
@@ -165,10 +167,14 @@ describe("#timers", () => {
       instance.addTimer(mock, { interval: TimeSync.DAYS });
 
       expect(mock).toHaveBeenCalledTimes(0);
-      clock.tick(1000 * 60 * 60 * 24 * 2 - 2);
+      clock.tick(
+        1000 * 60 * 60 * 24 * 2 - 2 - new Date().getTimezoneOffset() * 60 * 1000
+      );
 
       expect(mock).toHaveBeenCalledTimes(2);
-      expect(mock).toHaveBeenLastCalledWith(60 * 60 * 24 * 2);
+      expect(mock).toHaveBeenLastCalledWith(
+        60 * 60 * 24 * 2 + new Date().getTimezoneOffset() * 60
+      );
     });
 
     it("should work with a mix of timers", () => {
@@ -265,6 +271,16 @@ describe("#timers", () => {
       expect(TimeSync.getCurrentTime(timerConfig)).toBe(0);
       clock.tick(1000 * 60 * 60 * 2);
       expect(TimeSync.getCurrentTime(timerConfig)).toBe(60 * 90);
+    });
+
+    it("should return adjusted timezone value for DAYS configurations", () => {
+      const timerConfig = { interval: TimeSync.DAYS };
+      const timezoneOffset = new Date().getTimezoneOffset() * 60;
+      expect(TimeSync.getCurrentTime(timerConfig)).toBe(timezoneOffset);
+      clock.tick(1000 * 60 * 60 * 24 * 2);
+      expect(TimeSync.getCurrentTime(timerConfig)).toBe(
+        24 * 60 * 60 * 2 + timezoneOffset
+      );
     });
   });
 

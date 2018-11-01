@@ -1,4 +1,4 @@
-import { SECONDS } from "./constants";
+import { SECONDS, DAYS } from "./constants";
 import { generateId } from "./lib/id";
 import { validateInterval } from "./lib/validation";
 import { getMs } from "./lib/get-ms";
@@ -29,17 +29,30 @@ function validateAddTimerArgs(callback, timerConfig) {
   validateTimerConfig(timerConfig);
 }
 
-function roundTick(ms, tick) {
-  return tick - (tick % ms);
+function getTimezoneOffset() {
+  return new Date().getTimezoneOffset() * 60 * 1000;
 }
 
-function getCurrentTick(ms) {
-  return roundTick(ms, Date.now());
+function roundTick(ms, tick, interval) {
+  let delta = tick % ms;
+  if (interval === DAYS) {
+    const timezoneDelta = delta - getTimezoneOffset();
+    if (timezoneDelta > ms) {
+      return tick + timezoneDelta;
+    }
+    delta = Math.abs(timezoneDelta);
+  }
+
+  return tick - delta;
 }
 
-function getNextTick({ ms }, time) {
+function getCurrentTick(ms, interval) {
+  return roundTick(ms, Date.now(), interval);
+}
+
+function getNextTick({ interval, ms }, time) {
   const newTime = time + ms;
-  return roundTick(ms, newTime);
+  return roundTick(ms, newTime, interval);
 }
 
 function getUnixTimeStamp(tick) {
@@ -54,7 +67,7 @@ export function getCurrentTime(timerConfig = {}) {
     ...timerConfig
   };
 
-  return getUnixTimeStamp(getCurrentTick(getMs(config)));
+  return getUnixTimeStamp(getCurrentTick(getMs(config), config.interval));
 }
 
 export class Timers {
@@ -72,7 +85,7 @@ export class Timers {
       const timer = this.timers[timerId];
 
       if (timer.nextTick <= now) {
-        const usedTime = roundTick(timer.ms, now);
+        const usedTime = roundTick(timer.ms, now, timer.interval);
         timer.callback(getUnixTimeStamp(usedTime));
         timer.nextTick = getNextTick(timer, now);
       }
