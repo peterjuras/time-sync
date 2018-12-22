@@ -20,13 +20,13 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "coveralls": "^3.0.2",
-    "eslint": "^5.6.1",
+    "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-import": "^2.14.0",
     "jest": "^23.6.0",
-    "jest-junit": "^5.1.0",
-    "lolex": "^2.7.5"
+    "jest-junit": "^5.2.0",
+    "lolex": "^3.0.0"
   },
   "dependencies": {}
 }
