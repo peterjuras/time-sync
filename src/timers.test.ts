@@ -3,7 +3,7 @@ import lolex from "lolex";
 
 describe("#timers", () => {
   const instance = new TimeSync();
-  let clock;
+  let clock: lolex.Clock;
 
   beforeEach(() => {
     clock = lolex.install({
@@ -29,31 +29,31 @@ describe("#timers", () => {
     it("should throw if for an unknown interval", () => {
       expect(() =>
         instance.addTimer(jest.fn(), {
-          interval: []
+          interval: [] as any
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          interval: {}
+          interval: {} as any
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          interval: 123
+          interval: 123 as any
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          interval: ""
+          interval: "" as any
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          interval: "a"
+          interval: "a" as any
         })
       ).toThrowErrorMatchingSnapshot();
     });
@@ -61,31 +61,31 @@ describe("#timers", () => {
     it("should throw if for an invalid unit", () => {
       expect(() =>
         instance.addTimer(jest.fn(), {
-          unit: []
+          unit: [] as any
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          unit: {}
+          unit: {} as any
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          unit: ""
+          unit: "" as any
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          unit: "a"
+          unit: "a" as any
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          unit: "15"
+          unit: "15" as any
         })
       ).toThrowErrorMatchingSnapshot();
 
@@ -309,14 +309,14 @@ describe("#timers", () => {
       expect(mockTenSeconds).toHaveBeenCalledTimes(0);
       expect(mockMinute).toHaveBeenCalledTimes(0);
 
-      clock.tick();
+      clock.tick(1);
 
       expect(mockSecond).toHaveBeenCalledTimes(0);
       expect(mockTenSeconds).toHaveBeenCalledTimes(0);
       expect(mockMinute).toHaveBeenCalledTimes(0);
 
       instance.revalidate();
-      clock.tick();
+      clock.tick(1);
 
       expect(mockSecond).toHaveBeenCalledTimes(1);
       expect(mockTenSeconds).toHaveBeenCalledTimes(1);

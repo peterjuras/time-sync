@@ -3,7 +3,7 @@ import lolex from "lolex";
 
 describe("#countdowns", () => {
   const instance = new TimeSync();
-  let clock;
+  let clock: lolex.Clock;
 
   beforeEach(() => {
     clock = lolex.install({ now: 10001 });
@@ -22,7 +22,7 @@ describe("#countdowns", () => {
 
     it("should throw if no callback is provided", () => {
       expect(() =>
-        instance.createCountdown(null, { until: 123 })
+        instance.createCountdown(null as any, { until: 123 })
       ).toThrowErrorMatchingSnapshot();
     });
 
@@ -30,71 +30,71 @@ describe("#countdowns", () => {
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: 123,
-          interval: []
+          interval: [] as any
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: 123,
-          interval: {}
+          interval: {} as any
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: 123,
-          interval: 123
+          interval: 123 as any
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: 123,
-          interval: ""
+          interval: "" as any
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: 123,
-          interval: "a"
+          interval: "a" as any
         })
       ).toThrowErrorMatchingSnapshot();
     });
 
     it("should throw if for an invalid or missing until", () => {
       expect(() =>
-        instance.createCountdown(jest.fn(), {})
+        instance.createCountdown(jest.fn(), {} as any)
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
-          until: []
+          until: [] as any
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
-          until: {}
+          until: {} as any
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
-          until: ""
+          until: "" as any
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
-          until: "a"
+          until: "a" as any
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
-          until: "15"
+          until: "15" as any
         })
       ).toThrowErrorMatchingSnapshot();
 
@@ -292,7 +292,7 @@ describe("#countdowns", () => {
     });
 
     it("should throw if there is no until property", () => {
-      const countdownConfig = {
+      const countdownConfig: any = {
         interval: TimeSync.DAYS
       };
       expect(() =>

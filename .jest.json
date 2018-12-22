@@ -1,4 +1,5 @@
 {
+  "preset": "ts-jest",
   "collectCoverage": true,
   "coverageReporters": ["text"]
 }

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "strict": true,
+    "lib": ["dom", "es5", "scripthost", "es2015"],
+    "esModuleInterop": true,
+    "outDir": "lib",
+    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  },
+  "include": ["src"],
+  "exclude": ["**/**/*.test.ts"]
+}
