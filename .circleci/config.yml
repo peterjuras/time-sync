@@ -18,7 +18,7 @@ jobs:
       - run: yarn lint
       - run:
           name: Tests
-          command: yarn test-ci
+          command: TZ=Europe/Berlin yarn test-ci
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/jest/js-test-results.xml"
       - store_test_results:
