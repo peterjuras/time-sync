@@ -27,7 +27,7 @@ interface IStoredTimerConfig extends ISafeTimerConfig {
 }
 
 function validateTimerConfig(timerConfig: ITimerConfig) {
-  validateInterval(timerConfig);
+  validateInterval(timerConfig.interval);
 
   if (
     typeof timerConfig.unit !== "undefined" &&
@@ -71,10 +71,7 @@ function getCurrentTick(ms: number, interval: Interval) {
   return roundTick(ms, Date.now(), interval);
 }
 
-function getNextTick(
-  { interval, ms }: { interval: Interval; ms: number },
-  time: number
-) {
+function getNextTick(interval: Interval, ms: number, time: number) {
   const newTime = time + ms;
   return roundTick(ms, newTime, interval);
 }
@@ -91,7 +88,9 @@ export function getCurrentTime(timerConfig: ITimerConfig = {}) {
     ...timerConfig
   };
 
-  return getUnixTimeStamp(getCurrentTick(getMs(config), config.interval));
+  return getUnixTimeStamp(
+    getCurrentTick(getMs(config.interval, config.unit), config.interval)
+  );
 }
 
 export class Timers {
@@ -101,7 +100,7 @@ export class Timers {
 
   private currentTimeout?: number;
 
-  private nextTick: number | null = null;
+  private nextTick: number = 0;
 
   public removeAllTimers = () => {
     this.timers = {};
@@ -119,15 +118,13 @@ export class Timers {
       ...DEFAULT_TIMER_CONFIG,
       ...timerConfig
     };
-    const newTimerWithMs = {
+    const ms = getMs(newTimerBase.interval, newTimerBase.unit);
+    const newTimer: IStoredTimerConfig = {
       ...newTimerBase,
       callback,
       id,
-      ms: getMs(newTimerBase)
-    };
-    const newTimer: IStoredTimerConfig = {
-      ...newTimerWithMs,
-      nextTick: getNextTick(newTimerWithMs, Date.now())
+      ms,
+      nextTick: getNextTick(newTimerBase.interval, ms, Date.now())
     };
 
     this.timers[id] = newTimer;
@@ -144,13 +141,13 @@ export class Timers {
     const now = Date.now();
 
     this.nextTick = Object.keys(this.timers).reduce(
-      (prev: number | null, timerId: string) => {
+      (prev: number, timerId: string) => {
         const timer = this.timers[timerId];
 
         if (timer.nextTick <= now) {
           const usedTime = roundTick(timer.ms, now, timer.interval);
           timer.callback(getUnixTimeStamp(usedTime));
-          timer.nextTick = getNextTick(timer, now);
+          timer.nextTick = getNextTick(timer.interval, timer.ms, now);
         }
 
         if (!prev || prev > timer.nextTick) {
@@ -158,7 +155,7 @@ export class Timers {
         }
         return prev;
       },
-      null
+      0
     );
 
     if (this.nextTick) {

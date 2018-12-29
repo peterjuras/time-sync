@@ -30,7 +30,7 @@ function validateCountdownConfig(countdownConfig: ICountdownConfig) {
     throw new Error("You must pass a valid countdown configuration object");
   }
 
-  validateInterval(countdownConfig);
+  validateInterval(countdownConfig.interval);
 
   if (!Number.isInteger(countdownConfig.until)) {
     throw new Error("until must be an integer");
@@ -123,7 +123,7 @@ export class Countdowns {
       ...countdownBase,
       callback,
       id,
-      ms: getMs(countdownBase)
+      ms: getMs(countdownBase.interval)
     };
 
     const now = Date.now();
@@ -159,10 +159,8 @@ export class Countdowns {
     countdown.callback(timeLeft);
 
     if (timeLeft > 0) {
-      // const nextTickDelta = getNextTick(countdown, Date.now()) - Date.now();
       const nextTickDelta = getNextTickDelta(countdown, Date.now());
 
-      // eslint-disable-next-line no-param-reassign
       countdown.timeout = setTimeout(this.revalidate, nextTickDelta, countdown);
     } else {
       this.removeCountdown(countdown.id);

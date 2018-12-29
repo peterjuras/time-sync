@@ -1,12 +1,6 @@
 import { IntervalMap, Interval } from "../constants";
 
-export function getMs({
-  interval,
-  unit = 1
-}: {
-  interval: Interval;
-  unit?: number;
-}) {
+export function getMs(interval: Interval, unit: number = 1) {
   const intervalValue = IntervalMap[interval];
   let ms = 1000;
 
