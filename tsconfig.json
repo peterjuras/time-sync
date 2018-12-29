@@ -11,6 +11,5 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "include": ["src"],
-  "exclude": ["**/**/*.test.ts"]
+  "include": ["src"]
 }
