@@ -1,6 +1,6 @@
 {
   "name": "time-sync",
-  "version": "2.2.0",
+  "version": "0.0.0-development",
   "description": "A JavaScript library to synchronize timers across an application",
   "main": "index.js",
   "types": "index.d.ts",
