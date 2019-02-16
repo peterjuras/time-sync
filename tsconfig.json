@@ -6,7 +6,7 @@
     "strict": true,
     "lib": ["dom", "es5", "scripthost", "es2015"],
     "esModuleInterop": true,
-    "outDir": "lib",
+    "outDir": "build",
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true
