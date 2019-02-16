@@ -9,6 +9,7 @@ executors:
       JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
 
 workflows:
+  version: 2
   time-sync:
     jobs:
       - build
