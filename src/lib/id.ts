@@ -1,4 +1,4 @@
 let lastId = 0;
-export function generateId() {
+export function generateId(): number {
   return lastId++;
 }

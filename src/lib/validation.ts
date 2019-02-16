@@ -1,6 +1,6 @@
 import { Interval, IntervalMap } from "../constants";
 
-export function validateInterval(interval?: Interval) {
+export function validateInterval(interval?: Interval): void {
   if (
     typeof interval !== "undefined" &&
     !Object.keys(IntervalMap).some(innerInterval => innerInterval === interval)

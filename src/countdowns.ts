@@ -7,25 +7,25 @@ const DEFAULT_COUNTDOWN_CONFIG = {
   interval: Interval.SECONDS
 };
 
-interface ICountdownConfig {
+interface CountdownConfig {
   until: number;
   interval?: Interval;
 }
 
-interface ISafeCountdownConfig extends ICountdownConfig {
+interface SafeCountdownConfig extends CountdownConfig {
   interval: Interval;
 }
 
-type CountdownCallback = (timeLeft: number) => any;
+type CountdownCallback = (timeLeft: number) => void;
 
-interface ICountdownStoredConfig extends ISafeCountdownConfig {
+interface CountdownStoredConfig extends SafeCountdownConfig {
   id: number;
   callback: CountdownCallback;
   ms: number;
   timeout?: number;
 }
 
-function validateCountdownConfig(countdownConfig: ICountdownConfig) {
+function validateCountdownConfig(countdownConfig: CountdownConfig): void {
   if (!countdownConfig) {
     throw new Error("You must pass a valid countdown configuration object");
   }
@@ -37,7 +37,7 @@ function validateCountdownConfig(countdownConfig: ICountdownConfig) {
   }
 }
 
-function convert(difference: number, interval: Interval) {
+function convert(difference: number, interval: Interval): number {
   const intervalValue = IntervalMap[interval];
   let result = difference / 1000;
 
@@ -56,7 +56,7 @@ function convert(difference: number, interval: Interval) {
   return result;
 }
 
-function calculateTimeLeft(config: ISafeCountdownConfig) {
+function calculateTimeLeft(config: SafeCountdownConfig): number {
   // until is timestamp in milliseconds that should be reached
   const difference = config.until - Date.now();
 
@@ -66,7 +66,7 @@ function calculateTimeLeft(config: ISafeCountdownConfig) {
   return timeLeft > 0 ? timeLeft : 0;
 }
 
-export function getTimeLeft(countdownConfig: ICountdownConfig) {
+export function getTimeLeft(countdownConfig: CountdownConfig): number {
   validateCountdownConfig(countdownConfig);
 
   const config = {
@@ -77,7 +77,10 @@ export function getTimeLeft(countdownConfig: ICountdownConfig) {
   return calculateTimeLeft(config);
 }
 
-function getNextTickDelta({ ms, until }: ICountdownStoredConfig, time: number) {
+function getNextTickDelta(
+  { ms, until }: CountdownStoredConfig,
+  time: number
+): number {
   const timeMod = time % ms;
   const untilMod = until % ms;
 
@@ -92,8 +95,8 @@ function getNextTickDelta({ ms, until }: ICountdownStoredConfig, time: number) {
 
 function validateCreateCountdownArgs(
   callback: CountdownCallback,
-  countdownConfig: ICountdownConfig
-) {
+  countdownConfig: CountdownConfig
+): void {
   if (!callback) {
     throw new Error(
       "You need to provide a callback as the first argument to createCountdown"
@@ -105,12 +108,12 @@ function validateCreateCountdownArgs(
 
 export class Countdowns {
   private countdowns: {
-    [key: string]: ICountdownStoredConfig;
+    [key: string]: CountdownStoredConfig;
   } = {};
 
   public createCountdown = (
     callback: CountdownCallback,
-    countdownConfig: ICountdownConfig
+    countdownConfig: CountdownConfig
   ) => {
     validateCreateCountdownArgs(callback, countdownConfig);
 
@@ -119,7 +122,7 @@ export class Countdowns {
       ...DEFAULT_COUNTDOWN_CONFIG,
       ...countdownConfig
     };
-    const newCountdown: ICountdownStoredConfig = {
+    const newCountdown: CountdownStoredConfig = {
       ...countdownBase,
       callback,
       id,
@@ -152,7 +155,7 @@ export class Countdowns {
     this.countdowns = {};
   };
 
-  private revalidate = (countdown: ICountdownStoredConfig) => {
+  private revalidate = (countdown: CountdownStoredConfig) => {
     clearTimeout(countdown.timeout);
 
     const timeLeft = calculateTimeLeft(countdown);

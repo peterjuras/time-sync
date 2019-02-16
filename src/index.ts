@@ -22,7 +22,7 @@ export default class TimeSync {
   public getCurrentTime: typeof getCurrentTime;
   public getTimeLeft: typeof getTimeLeft;
 
-  constructor() {
+  public constructor() {
     const timers = new Timers();
     const countdowns = new Countdowns();
 

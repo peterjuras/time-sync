@@ -3,30 +3,30 @@ import { generateId } from "./lib/id";
 import { validateInterval } from "./lib/validation";
 import { getMs } from "./lib/get-ms";
 
-const DEFAULT_TIMER_CONFIG: ISafeTimerConfig = {
+const DEFAULT_TIMER_CONFIG: SafeTimerConfig = {
   interval: Interval.SECONDS,
   unit: 1
 };
 
-interface ITimerConfig {
+interface TimerConfig {
   interval?: Interval;
   unit?: number;
 }
 
-interface ISafeTimerConfig extends ITimerConfig {
+interface SafeTimerConfig extends TimerConfig {
   interval: Interval;
 }
 
-type TimeCallback = (currentTime: number) => any;
+type TimeCallback = (currentTime: number) => void;
 
-interface IStoredTimerConfig extends ISafeTimerConfig {
+interface StoredTimerConfig extends SafeTimerConfig {
   id: number;
   callback: TimeCallback;
   ms: number;
   nextTick: number;
 }
 
-function validateTimerConfig(timerConfig: ITimerConfig) {
+function validateTimerConfig(timerConfig: TimerConfig): void {
   validateInterval(timerConfig.interval);
 
   if (
@@ -39,8 +39,8 @@ function validateTimerConfig(timerConfig: ITimerConfig) {
 
 function validateAddTimerArgs(
   callback: TimeCallback,
-  timerConfig: ITimerConfig
-) {
+  timerConfig: TimerConfig
+): void {
   if (!callback) {
     throw new Error(
       "You need to provide a callback as the first argument to addTimer"
@@ -50,11 +50,11 @@ function validateAddTimerArgs(
   validateTimerConfig(timerConfig);
 }
 
-function getTimezoneOffset() {
+function getTimezoneOffset(): number {
   return new Date().getTimezoneOffset() * 60 * 1000;
 }
 
-function roundTick(ms: number, tick: number, interval?: Interval) {
+function roundTick(ms: number, tick: number, interval?: Interval): number {
   let delta = tick % ms;
   if (interval === Interval.DAYS) {
     const timezoneDelta = delta - getTimezoneOffset();
@@ -67,23 +67,23 @@ function roundTick(ms: number, tick: number, interval?: Interval) {
   return tick - delta;
 }
 
-function getCurrentTick(ms: number, interval: Interval) {
+function getCurrentTick(ms: number, interval: Interval): number {
   return roundTick(ms, Date.now(), interval);
 }
 
-function getNextTick(interval: Interval, ms: number, time: number) {
+function getNextTick(interval: Interval, ms: number, time: number): number {
   const newTime = time + ms;
   return roundTick(ms, newTime, interval);
 }
 
-function getUnixTimeStamp(tick: number) {
+function getUnixTimeStamp(tick: number): number {
   return Math.floor(tick / 1000);
 }
 
-export function getCurrentTime(timerConfig: ITimerConfig = {}) {
+export function getCurrentTime(timerConfig: TimerConfig = {}): number {
   validateTimerConfig(timerConfig);
 
-  const config: ISafeTimerConfig = {
+  const config: SafeTimerConfig = {
     ...DEFAULT_TIMER_CONFIG,
     ...timerConfig
   };
@@ -95,7 +95,7 @@ export function getCurrentTime(timerConfig: ITimerConfig = {}) {
 
 export class Timers {
   private timers: {
-    [key: string]: IStoredTimerConfig;
+    [key: string]: StoredTimerConfig;
   } = {};
 
   private currentTimeout?: number;
@@ -107,10 +107,7 @@ export class Timers {
     this.revalidate();
   };
 
-  public addTimer = (
-    callback: TimeCallback,
-    timerConfig: ITimerConfig = {}
-  ) => {
+  public addTimer = (callback: TimeCallback, timerConfig: TimerConfig = {}) => {
     validateAddTimerArgs(callback, timerConfig);
 
     const id = generateId();
@@ -119,7 +116,7 @@ export class Timers {
       ...timerConfig
     };
     const ms = getMs(newTimerBase.interval, newTimerBase.unit);
-    const newTimer: IStoredTimerConfig = {
+    const newTimer: StoredTimerConfig = {
       ...newTimerBase,
       callback,
       id,
