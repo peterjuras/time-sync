@@ -42,9 +42,10 @@ jobs:
             - work-dir
       - run:
           name: Tests
-          command: TZ=Europe/Berlin yarn test-ci
+          command: yarn test-ci
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/jest/js-test-results.xml"
+            TZ: Europe/Berlin
       - store_test_results:
           path: reports/junit
   release:
