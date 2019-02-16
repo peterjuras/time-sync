@@ -16,7 +16,7 @@ workflows:
       - release:
           context: Semantic-Release
           requires:
-            - test
+            - build
           filters:
             branches:
               only: master
