@@ -3,7 +3,7 @@ import lolex from "lolex";
 
 describe("#countdowns", () => {
   const instance = new TimeSync();
-  let clock: lolex.Clock;
+  let clock: lolex.InstalledClock<lolex.Clock>;
 
   beforeEach(() => {
     clock = lolex.install({ now: 10001 });
