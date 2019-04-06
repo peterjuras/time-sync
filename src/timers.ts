@@ -102,12 +102,15 @@ export class Timers {
 
   private nextTick: number = 0;
 
-  public removeAllTimers = () => {
+  public removeAllTimers = (): void => {
     this.timers = {};
     this.revalidate();
   };
 
-  public addTimer = (callback: TimeCallback, timerConfig: TimerConfig = {}) => {
+  public addTimer = (
+    callback: TimeCallback,
+    timerConfig: TimerConfig = {}
+  ): (() => void) => {
     validateAddTimerArgs(callback, timerConfig);
 
     const id = generateId();
@@ -130,15 +133,15 @@ export class Timers {
       this.revalidate();
     }
 
-    return () => this.removeTimer(id);
+    return (): void => this.removeTimer(id);
   };
 
-  public revalidate = () => {
+  public revalidate = (): void => {
     clearTimeout(this.currentTimeout);
     const now = Date.now();
 
     this.nextTick = Object.keys(this.timers).reduce(
-      (prev: number, timerId: string) => {
+      (prev: number, timerId: string): number => {
         const timer = this.timers[timerId];
 
         if (timer.nextTick <= now) {
@@ -161,7 +164,7 @@ export class Timers {
     }
   };
 
-  private removeTimer = (id: number) => {
+  private removeTimer = (id: number): void => {
     const timer = this.timers[id];
     if (!timer) {
       return;

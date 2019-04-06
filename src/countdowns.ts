@@ -114,7 +114,7 @@ export class Countdowns {
   public createCountdown = (
     callback: CountdownCallback,
     countdownConfig: CountdownConfig
-  ) => {
+  ): (() => void) => {
     validateCreateCountdownArgs(callback, countdownConfig);
 
     const id = generateId();
@@ -145,17 +145,19 @@ export class Countdowns {
 
     this.countdowns[id] = newCountdown;
 
-    return () => this.removeCountdown(id);
+    return (): void => this.removeCountdown(id);
   };
 
-  public stopAllCountdowns = () => {
-    Object.keys(this.countdowns).forEach((id: string) => {
-      clearTimeout(this.countdowns[id].timeout);
-    });
+  public stopAllCountdowns = (): void => {
+    Object.keys(this.countdowns).forEach(
+      (id: string): void => {
+        clearTimeout(this.countdowns[id].timeout);
+      }
+    );
     this.countdowns = {};
   };
 
-  private revalidate = (countdown: CountdownStoredConfig) => {
+  private revalidate = (countdown: CountdownStoredConfig): void => {
     clearTimeout(countdown.timeout);
 
     const timeLeft = calculateTimeLeft(countdown);
@@ -170,7 +172,7 @@ export class Countdowns {
     }
   };
 
-  private removeCountdown = (id: number) => {
+  private removeCountdown = (id: number): void => {
     const countdown = this.countdowns[id];
     if (!countdown) {
       return;

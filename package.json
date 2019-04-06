@@ -11,7 +11,7 @@
     "build": "rm -rf build && tsc -p tsconfig.build.json && yarn run typedefs && cp -R scripts .npmignore LICENSE package.json README.md build",
     "prepublishOnly": "node ./scripts/ensure-publish-path",
     "release": "cd build && semantic-release",
-    "lint": "eslint '{scripts,src}/**/*.{ts,js}'",
+    "lint": "eslint '{scripts,src}/**/*.{ts,js}' --max-warnings 0",
     "test": "jest --config .jest.js",
     "test-ci": "jest --ci --maxWorkers=2 --config .jest.ci.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
