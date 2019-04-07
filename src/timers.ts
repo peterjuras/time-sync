@@ -3,30 +3,26 @@ import { generateId } from "./lib/id";
 import { validateInterval } from "./lib/validation";
 import { getMs } from "./lib/get-ms";
 
-const DEFAULT_TIMER_CONFIG: SafeTimerConfig = {
+interface TimerConfig {
+  interval: Interval;
+  unit: number;
+}
+
+const DEFAULT_TIMER_CONFIG: TimerConfig = {
   interval: Interval.SECONDS,
   unit: 1
 };
 
-interface TimerConfig {
-  interval?: Interval;
-  unit?: number;
-}
-
-interface SafeTimerConfig extends TimerConfig {
-  interval: Interval;
-}
-
 type TimeCallback = (currentTime: number) => void;
 
-interface StoredTimerConfig extends SafeTimerConfig {
+interface StoredTimerConfig extends TimerConfig {
   id: number;
   callback: TimeCallback;
   ms: number;
   nextTick: number;
 }
 
-function validateTimerConfig(timerConfig: TimerConfig): void {
+function validateTimerConfig(timerConfig: Partial<TimerConfig>): void {
   validateInterval(timerConfig.interval);
 
   if (
@@ -39,7 +35,7 @@ function validateTimerConfig(timerConfig: TimerConfig): void {
 
 function validateAddTimerArgs(
   callback: TimeCallback,
-  timerConfig: TimerConfig
+  timerConfig: Partial<TimerConfig>
 ): void {
   if (!callback) {
     throw new Error(
@@ -80,10 +76,10 @@ function getUnixTimeStamp(tick: number): number {
   return Math.floor(tick / 1000);
 }
 
-export function getCurrentTime(timerConfig: TimerConfig = {}): number {
+export function getCurrentTime(timerConfig: Partial<TimerConfig> = {}): number {
   validateTimerConfig(timerConfig);
 
-  const config: SafeTimerConfig = {
+  const config: TimerConfig = {
     ...DEFAULT_TIMER_CONFIG,
     ...timerConfig
   };
@@ -109,7 +105,7 @@ export class Timers {
 
   public addTimer = (
     callback: TimeCallback,
-    timerConfig: TimerConfig = {}
+    timerConfig: Partial<TimerConfig> = {}
   ): (() => void) => {
     validateAddTimerArgs(callback, timerConfig);
 
@@ -119,7 +115,7 @@ export class Timers {
       ...timerConfig
     };
     const ms = getMs(newTimerBase.interval, newTimerBase.unit);
-    const newTimer: StoredTimerConfig = {
+    const newTimer = {
       ...newTimerBase,
       callback,
       id,
