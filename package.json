@@ -8,15 +8,20 @@
   "author": "Peter Juras <me@peterjuras.com>",
   "scripts": {
     "typedefs": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly",
-    "build": "rm -rf build && tsc -p tsconfig.build.json && yarn run typedefs && cp -R scripts .npmignore LICENSE package.json README.md build",
+    "build": "rm -rf build && babel src -d build --extensions '.ts,.tsx' --ignore '**/*.test.ts,**/*.test.tsx' && yarn run typedefs && cp -R scripts .npmignore LICENSE package.json README.md build",
     "prepublishOnly": "node ./scripts/ensure-publish-path",
     "release": "cd build && semantic-release",
-    "lint": "eslint '{scripts,src}/**/*.{ts,js}' --max-warnings 0",
+    "lint": "eslint '{scripts,src}/**/*.{ts,js}' --max-warnings 0 && tsc && prettier-check '{scripts,src}/**/*.{ts,js}'",
     "test": "jest --config .jest.js",
     "test-ci": "jest --ci --maxWorkers=2 --config .jest.ci.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "license": "MIT",
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-typescript": "^7.3.3",
     "@types/jest": "^24.0.12",
     "@types/lolex": "^3.1.1",
     "@typescript-eslint/eslint-plugin": "^1.8.0",
@@ -27,6 +32,8 @@
     "jest": "^24.8.0",
     "jest-junit": "^6.4.0",
     "lolex": "^4.0.1",
+    "prettier": "^1.17.0",
+    "prettier-check": "^2.0.0",
     "semantic-release": "^15.13.12",
     "ts-jest": "^24.0.2",
     "typescript": "^3.4.5"
