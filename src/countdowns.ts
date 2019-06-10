@@ -149,11 +149,9 @@ export class Countdowns {
   };
 
   public stopAllCountdowns = (): void => {
-    Object.keys(this.countdowns).forEach(
-      (id: string): void => {
-        clearTimeout(this.countdowns[id].timeout);
-      }
-    );
+    Object.keys(this.countdowns).forEach((id: string): void => {
+      clearTimeout(this.countdowns[id].timeout);
+    });
     this.countdowns = {};
   };
 
