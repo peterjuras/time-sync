@@ -4,7 +4,10 @@
   "description": "A JavaScript library to synchronize timers across an application",
   "main": "index.js",
   "types": "index.d.ts",
-  "repository": "https://github.com/peterjuras/time-sync.git",
+  "repository": {
+    "url": "https://github.com/peterjuras/time-sync.git",
+    "type": "git"
+  },
   "author": "Peter Juras <me@peterjuras.com>",
   "scripts": {
     "build:typedefs": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly",
