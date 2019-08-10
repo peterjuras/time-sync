@@ -18,3 +18,11 @@ jobs:
     steps:
       - name: Lint
         run: yarn lint
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs:
+      - install
+    steps:
+      - name: Build
+        run: yarn build
