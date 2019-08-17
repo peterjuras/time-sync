@@ -139,6 +139,10 @@ export class Timers {
     this.nextTick = Object.keys(this.timers).reduce(
       (prev: number, timerId: string): number => {
         const timer = this.timers[timerId];
+        if (!timer) {
+          // Timer was already removed within callback of another timer
+          return prev;
+        }
 
         if (timer.nextTick <= now) {
           const usedTime = roundTick(timer.ms, now, timer.interval);

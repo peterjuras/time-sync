@@ -363,5 +363,17 @@ describe("#timers", () => {
 
       expect(mock2).toHaveBeenCalledTimes(0);
     });
+
+    it("should not break if removal of timer removes second timer", () => {
+      // eslint-disable-next-line prefer-const
+      let removeSecondTimerRef: Function;
+
+      instance.addTimer(() => {
+        removeSecondTimerRef();
+      });
+      removeSecondTimerRef = instance.addTimer(jest.fn());
+
+      clock.tick(1000);
+    });
   });
 });
