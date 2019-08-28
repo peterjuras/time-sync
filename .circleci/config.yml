@@ -43,10 +43,15 @@ jobs:
           name: Tests
           command: yarn test-ci
           environment:
-            JEST_JUNIT_OUTPUT: "reports/junit/jest/js-test-results.xml"
             TZ: Europe/Berlin
+      - run:
+          name: Copy test results
+          command: |
+            mkdir test-results
+            cd test-results && mkdir jest
+            cp junit.xml test-resuts/jest
       - store_test_results:
-          path: junit.xml
+          path: test-results
   release:
     executor: default
     steps:
