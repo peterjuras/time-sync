@@ -47,8 +47,7 @@ jobs:
       - run:
           name: Copy test results
           command: |
-            mkdir test-results
-            cd test-results && mkdir jest
+            mkdir -p test-results/jest
             cp junit.xml test-resuts/jest
       - store_test_results:
           path: test-results
