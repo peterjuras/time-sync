@@ -46,7 +46,7 @@ jobs:
             JEST_JUNIT_OUTPUT: "reports/junit/jest/js-test-results.xml"
             TZ: Europe/Berlin
       - store_test_results:
-          path: "."
+          path: junit.xml
   release:
     executor: default
     steps:
