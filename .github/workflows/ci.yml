@@ -17,6 +17,7 @@ jobs:
       - name: Build
         run: yarn build
       - name: Release
+        if: ${{ github.ref }} == 'master'
         run: yarn release
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
