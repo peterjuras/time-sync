@@ -14,6 +14,8 @@ jobs:
         run: yarn lint
       - name: Test
         run: yarn test-ci
+        env:
+          TZ: Europe/Berlin
       - name: Build
         run: yarn build
       - name: Coveralls
