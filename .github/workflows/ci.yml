@@ -12,7 +12,12 @@ jobs:
         run: yarn --frozen-lockfile
       - name: Lint
         run: yarn lint
+      - name: Test
+        run: yarn test
       - name: Build
         run: yarn build
-      # - name: Release
-      #   run: yarn release
+      - name: Release
+        run: yarn release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
