@@ -20,7 +20,7 @@
     "lint:prettier": "prettier-check '{scripts,src}/**/*.{ts,js}'",
     "lint": "run-p lint:eslint lint:tsc lint:prettier",
     "test": "jest --config .jest.js",
-    "test-ci": "jest --ci --maxWorkers=2 --config .jest.ci.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "test-ci": "jest --ci --maxWorkers=2 --config .jest.ci.js"
   },
   "license": "MIT",
   "devDependencies": {

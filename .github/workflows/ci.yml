@@ -16,6 +16,10 @@ jobs:
         run: yarn test-ci
       - name: Build
         run: yarn build
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Release
         if: github.ref == 'refs/heads/master'
         run: yarn release
