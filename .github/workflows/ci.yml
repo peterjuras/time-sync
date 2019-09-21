@@ -4,7 +4,7 @@ on:
 
 jobs:
   build-release:
-    name: Install dependencies
+    name: build and release time-sync
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master

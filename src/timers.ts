@@ -96,7 +96,7 @@ export class Timers {
 
   private currentTimeout?: number;
 
-  private nextTick: number = 0;
+  private nextTick = 0;
 
   public removeAllTimers = (): void => {
     this.timers = {};
