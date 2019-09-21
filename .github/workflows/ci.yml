@@ -1,28 +1,18 @@
-name: Build & Release
+name: time-sync
 on:
   - push
 
 jobs:
-  install:
+  build-release:
     name: Install dependencies
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - name: Install dependencies
         run: yarn --frozen-lockfile
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    needs:
-      - install
-    steps:
       - name: Lint
         run: yarn lint
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    needs:
-      - install
-    steps:
       - name: Build
         run: yarn build
+      # - name: Release
+      #   run: yarn release
