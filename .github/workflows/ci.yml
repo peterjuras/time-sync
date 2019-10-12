@@ -39,7 +39,7 @@ jobs:
         with:
           name: build
       - name: Release
-        run: cd build && npx semantic-release
+        run: cd build && npx semantic-release@15.13.24
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
