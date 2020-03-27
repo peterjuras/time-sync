@@ -4,7 +4,7 @@ import { generateId } from "./lib/id";
 import { getMs } from "./lib/get-ms";
 
 const DEFAULT_COUNTDOWN_CONFIG = {
-  interval: Interval.SECONDS
+  interval: Interval.SECONDS,
 };
 
 interface CountdownConfig {
@@ -71,7 +71,7 @@ export function getTimeLeft(countdownConfig: CountdownConfig): number {
 
   const config = {
     ...DEFAULT_COUNTDOWN_CONFIG,
-    ...countdownConfig
+    ...countdownConfig,
   };
 
   return calculateTimeLeft(config);
@@ -120,13 +120,13 @@ export class Countdowns {
     const id = generateId();
     const countdownBase = {
       ...DEFAULT_COUNTDOWN_CONFIG,
-      ...countdownConfig
+      ...countdownConfig,
     };
     const newCountdown: CountdownStoredConfig = {
       ...countdownBase,
       callback,
       id,
-      ms: getMs(countdownBase.interval)
+      ms: getMs(countdownBase.interval),
     };
 
     const now = Date.now();

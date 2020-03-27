@@ -10,7 +10,7 @@ interface TimerConfig {
 
 const DEFAULT_TIMER_CONFIG: TimerConfig = {
   interval: Interval.SECONDS,
-  unit: 1
+  unit: 1,
 };
 
 type TimeCallback = (currentTime: number) => void;
@@ -81,7 +81,7 @@ export function getCurrentTime(timerConfig: Partial<TimerConfig> = {}): number {
 
   const config: TimerConfig = {
     ...DEFAULT_TIMER_CONFIG,
-    ...timerConfig
+    ...timerConfig,
   };
 
   return getUnixTimeStamp(
@@ -112,7 +112,7 @@ export class Timers {
     const id = generateId();
     const newTimerBase = {
       ...DEFAULT_TIMER_CONFIG,
-      ...timerConfig
+      ...timerConfig,
     };
     const ms = getMs(newTimerBase.interval, newTimerBase.unit);
     const newTimer = {
@@ -120,7 +120,7 @@ export class Timers {
       callback,
       id,
       ms,
-      nextTick: getNextTick(newTimerBase.interval, ms, Date.now())
+      nextTick: getNextTick(newTimerBase.interval, ms, Date.now()),
     };
 
     this.timers[id] = newTimer;

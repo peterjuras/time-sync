@@ -7,7 +7,7 @@ describe("#timers", () => {
 
   beforeEach(() => {
     clock = lolex.install({
-      now: 10001
+      now: 10001,
     });
   });
 
@@ -29,31 +29,31 @@ describe("#timers", () => {
     it("should throw if for an unknown interval", () => {
       expect(() =>
         instance.addTimer(jest.fn(), {
-          interval: [] as any
+          interval: [] as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          interval: {} as any
+          interval: {} as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          interval: 123 as any
+          interval: 123 as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          interval: "" as any
+          interval: "" as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          interval: "a" as any
+          interval: "a" as any,
         })
       ).toThrowErrorMatchingSnapshot();
     });
@@ -61,55 +61,55 @@ describe("#timers", () => {
     it("should throw if for an invalid unit", () => {
       expect(() =>
         instance.addTimer(jest.fn(), {
-          unit: [] as any
+          unit: [] as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          unit: {} as any
+          unit: {} as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          unit: "" as any
+          unit: "" as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          unit: "a" as any
+          unit: "a" as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          unit: "15" as any
+          unit: "15" as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          unit: 250.291
+          unit: 250.291,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          unit: 0
+          unit: 0,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          unit: -12
+          unit: -12,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
-          unit: -12.28
+          unit: -12.28,
         })
       ).toThrowErrorMatchingSnapshot();
     });

@@ -30,35 +30,35 @@ describe("#countdowns", () => {
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: 123,
-          interval: [] as any
+          interval: [] as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: 123,
-          interval: {} as any
+          interval: {} as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: 123,
-          interval: 123 as any
+          interval: 123 as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: 123,
-          interval: "" as any
+          interval: "" as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: 123,
-          interval: "a" as any
+          interval: "a" as any,
         })
       ).toThrowErrorMatchingSnapshot();
     });
@@ -70,37 +70,37 @@ describe("#countdowns", () => {
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
-          until: [] as any
+          until: [] as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
-          until: {} as any
+          until: {} as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
-          until: "" as any
+          until: "" as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
-          until: "a" as any
+          until: "a" as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
-          until: "15" as any
+          until: "15" as any,
         })
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
-          until: 250.291
+          until: 250.291,
         })
       ).toThrowErrorMatchingSnapshot();
     });
@@ -130,7 +130,7 @@ describe("#countdowns", () => {
       const mock = jest.fn();
       instance.createCountdown(mock, {
         interval: TimeSync.SECONDS,
-        until: 20 * 1000
+        until: 20 * 1000,
       });
 
       expect(mock).toHaveBeenCalledTimes(0);
@@ -144,7 +144,7 @@ describe("#countdowns", () => {
       const mock = jest.fn();
       instance.createCountdown(mock, {
         interval: TimeSync.MINUTES,
-        until: 1000 * 3 * 60 + 10000
+        until: 1000 * 3 * 60 + 10000,
       });
 
       expect(mock).toHaveBeenCalledTimes(0);
@@ -161,7 +161,7 @@ describe("#countdowns", () => {
       const mock = jest.fn();
       instance.createCountdown(mock, {
         interval: TimeSync.HOURS,
-        until: 1000 * 60 * 60 * 4 + 10000
+        until: 1000 * 60 * 60 * 4 + 10000,
       });
 
       expect(mock).toHaveBeenCalledTimes(0);
@@ -178,7 +178,7 @@ describe("#countdowns", () => {
       const mock = jest.fn();
       instance.createCountdown(mock, {
         interval: TimeSync.DAYS,
-        until: 1000 * 60 * 60 * 4 * 24 + 10000
+        until: 1000 * 60 * 60 * 4 * 24 + 10000,
       });
 
       expect(mock).toHaveBeenCalledTimes(0);
@@ -199,7 +199,7 @@ describe("#countdowns", () => {
       instance.createCountdown(mockSecondDelayed, { until: 2500 + 10000 });
       instance.createCountdown(mockMinute, {
         interval: TimeSync.MINUTES,
-        until: 30 * 1000 + 10000
+        until: 30 * 1000 + 10000,
       });
 
       clock.tick(1000 * 60);
@@ -284,7 +284,7 @@ describe("#countdowns", () => {
     it("should work for defined countdown configurations", () => {
       const countdownConfig = {
         until: 1000 * 60 * 60 * 24 * 7,
-        interval: TimeSync.DAYS
+        interval: TimeSync.DAYS,
       };
       expect(TimeSync.getTimeLeft(countdownConfig)).toBe(7);
       clock.tick(1000 * 60 * 60 * 24 * 5);
@@ -293,7 +293,7 @@ describe("#countdowns", () => {
 
     it("should throw if there is no until property", () => {
       const countdownConfig: any = {
-        interval: TimeSync.DAYS
+        interval: TimeSync.DAYS,
       };
       expect(() =>
         TimeSync.getTimeLeft(countdownConfig)
