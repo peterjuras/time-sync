@@ -1,12 +1,12 @@
 import TimeSync from "./index";
-import lolex from "lolex";
+import FakeTimers from "@sinonjs/fake-timers";
 
 describe("#timers", () => {
   const instance = new TimeSync();
-  let clock: lolex.InstalledClock<lolex.Clock>;
+  let clock: FakeTimers.InstalledClock;
 
   beforeEach(() => {
-    clock = lolex.install({
+    clock = FakeTimers.install({
       now: 10001,
     });
   });
