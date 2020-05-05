@@ -3,4 +3,5 @@ module.exports = {
   modulePathIgnorePatterns: ["<rootDir>/build"],
   collectCoverageFrom: ["src/**/*.ts"],
   coverageReporters: ["text"],
+  testEnvironment: "node",
 };

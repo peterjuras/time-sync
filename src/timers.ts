@@ -160,7 +160,7 @@ export class Timers {
 
     if (this.nextTick) {
       const nextTickDelta = this.nextTick - Date.now();
-      this.currentTimeout = window.setTimeout(this.revalidate, nextTickDelta);
+      this.currentTimeout = setTimeout(this.revalidate, nextTickDelta);
     }
   };
 
