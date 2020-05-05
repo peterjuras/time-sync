@@ -94,7 +94,7 @@ export class Timers {
     [key: string]: StoredTimerConfig;
   } = {};
 
-  private currentTimeout?: number;
+  private currentTimeout?: unknown;
 
   private nextTick = 0;
 
@@ -133,7 +133,7 @@ export class Timers {
   };
 
   public revalidate = (): void => {
-    clearTimeout(this.currentTimeout);
+    clearTimeout(this.currentTimeout as number | undefined);
     const now = Date.now();
 
     this.nextTick = Object.keys(this.timers).reduce(
