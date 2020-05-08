@@ -4,4 +4,5 @@ module.exports = {
   collectCoverageFrom: ["src/**/*.ts"],
   coverageReporters: ["text"],
   testEnvironment: "node",
+  testRunner: "jest-circus/runner",
 };
