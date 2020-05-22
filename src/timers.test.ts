@@ -366,7 +366,7 @@ describe("#timers", () => {
 
     it("should not break if removal of timer removes second timer", () => {
       // eslint-disable-next-line prefer-const
-      let removeSecondTimerRef: Function;
+      let removeSecondTimerRef: () => void;
 
       instance.addTimer(() => {
         removeSecondTimerRef();
