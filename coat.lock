@@ -1,0 +1,26 @@
+files:
+  - hash: >-
+      CjAV3UQ+t7erq544SpBjO+HbRPrYx+copUsY6RQXzimScis/Zs3izZyMFQYA26+K2bnMQhErg9F+5Npi04iPGQ==
+    path: .babelrc
+  - hash: >-
+      si8wiamoLeldPdq09znIl9CiW7CjcrdohsuPkuOZXRw6NC2ihhxLaOZDoGyRSAwM1IuWYfkAlG2tKKkx6T3skA==
+    path: .eslintrc
+  - hash: >-
+      fxSZnVg1JXiEGv1w/4+1LpWhyUWeFgVRnyX8grd7X6S0JOseqVFI+GZS4O8s7QGhF0D2c/RfzdmEEbCDjdrbcw==
+    path: .gitignore
+  - hash: >-
+      QHEKgQldMPHG2z4M4TgWMtjG51Sjk9sSsjNFBsgPNLXOWdagKOs/EninMt8WCMXgT0fdHEPooI7fTiReuUKfFA==
+    path: jest.config.js
+  - once: true
+    path: README.md
+  - once: true
+    path: src/index.test.ts
+  - once: true
+    path: src/index.ts
+  - hash: >-
+      TwESwha/yeUsLsK5sHTYsMVFGSdfM4QRlCLPWrr/PQIeW6fIGz81LCnOijxrw24q1enaBvJLJXv8SogQ8W1EDQ==
+    path: tsconfig.build.json
+  - hash: >-
+      li5LAkECzXaUH0j/5vTUQ1YfaMIeFn1S0MlDqKpMc7c0SYXsdC2lzWKVsED8ROL6sjPIjBY1bSVbDwfSwqNw3g==
+    path: tsconfig.json
+version: 1

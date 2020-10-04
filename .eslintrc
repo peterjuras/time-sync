@@ -1,6 +1,8 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "env": {
+    "es6": true,
+    "node": true
+  },
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -10,17 +12,17 @@
   ],
   "overrides": [
     {
-      "files": ["*.test.ts"],
-      "rules": {
-        "@typescript-eslint/no-explicit-any": 0,
-        "@typescript-eslint/no-var-requires": 0,
-        "@typescript-eslint/explicit-function-return-type": 0
-      },
       "env": {
         "jest": true
       },
+      "files": ["*.test.ts"],
       "globals": {
         "fail": true
+      },
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": 0,
+        "@typescript-eslint/no-explicit-any": 0,
+        "@typescript-eslint/no-var-requires": 0
       }
     },
     {
@@ -31,8 +33,6 @@
       }
     }
   ],
-  "env": {
-    "node": true,
-    "es6": true
-  }
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"]
 }

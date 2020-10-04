@@ -1,33 +1,17 @@
 {
   "name": "time-sync",
   "version": "0.0.0-development",
-  "description": "A JavaScript library to synchronize timers across an application",
-  "main": "index.js",
-  "types": "index.d.ts",
-  "repository": {
-    "url": "https://github.com/peterjuras/time-sync.git",
-    "type": "git"
-  },
   "author": "Peter Juras <me@peterjuras.com>",
-  "scripts": {
-    "build:typedefs": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly",
-    "build:tsc": "babel src -d build --extensions '.ts,.tsx' --ignore '**/*.test.ts,**/*.test.tsx'",
-    "build": "rm -rf build && run-p build:typedefs build:tsc && cp -R scripts .npmignore LICENSE package.json README.md build",
-    "prepublishOnly": "node ./scripts/ensure-publish-path",
-    "lint:eslint": "eslint '{scripts,src}/**/*.{ts,js}' --max-warnings 0",
-    "lint:tsc": "tsc",
-    "lint:prettier": "prettier --check scripts src",
-    "lint": "run-p lint:eslint lint:tsc lint:prettier",
-    "test": "jest --config .jest.js",
-    "test-ci": "jest --ci --config .jest.ci.js"
-  },
-  "license": "MIT",
+  "dependencies": {},
+  "description": "A JavaScript library to synchronize timers across an application",
   "devDependencies": {
     "@babel/cli": "7.11.6",
     "@babel/core": "7.11.6",
     "@babel/plugin-proposal-class-properties": "7.10.4",
     "@babel/preset-env": "7.11.5",
     "@babel/preset-typescript": "7.10.4",
+    "@coat/cli": "0.0.11",
+    "@coat/template-ts-package": "0.0.10",
     "@sinonjs/fake-timers": "6.0.1",
     "@types/jest": "26.0.14",
     "@types/sinonjs__fake-timers": "6.0.2",
@@ -37,11 +21,34 @@
     "coveralls": "3.1.0",
     "eslint": "7.10.0",
     "eslint-config-prettier": "6.12.0",
+    "execa": "4.0.3",
     "jest": "26.4.2",
     "jest-circus": "26.4.2",
     "npm-run-all": "4.1.5",
     "prettier": "2.1.2",
+    "rimraf": "3.0.2",
     "typescript": "4.0.3"
   },
-  "dependencies": {}
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/peterjuras/time-sync.git"
+  },
+  "scripts": {
+    "build": "coat run build:*",
+    "build:babel": "babel src -d build --extensions \".ts,.tsx\" --ignore \"**/*.test.ts,**/*.test.tsx\"",
+    "build:typedefs": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly",
+    "lint": "coat run lint:*",
+    "lint:eslint": "eslint \"src/**/*.{ts,tsx}\" --max-warnings 0",
+    "lint:prettier": "prettier --check src",
+    "lint:types": "tsc",
+    "postbuild": "cp -R scripts .npmignore LICENSE package.json README.md build",
+    "prebuild": "rimraf build",
+    "prepare": "node scripts/prepare",
+    "prepublishOnly": "node ./scripts/ensure-publish-path",
+    "test": "jest",
+    "test-ci": "jest --ci --config jest.ci.config.js"
+  },
+  "types": "index.d.ts"
 }

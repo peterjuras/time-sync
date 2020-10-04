@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "moduleResolution": "node",
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "strict": true,
-    "lib": ["dom", "es5", "scripthost", "es2015"],
-    "outDir": "build",
-    "noEmit": true,
-    "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "lib": ["dom", "es5", "scripthost", "es2015"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "outDir": "build",
+    "strict": true,
+    "target": "esnext"
   },
   "include": ["src"]
 }

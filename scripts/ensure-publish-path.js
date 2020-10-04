@@ -1,8 +1,8 @@
 const path = require("path");
 
-const splitted = process.cwd().split(path.sep);
+const currentFolder = path.basename(process.cwd());
 
-if (splitted[splitted.length - 1] !== "build") {
+if (currentFolder !== "build") {
   console.log(
     "ERROR! You can only publish outside of the transpiled /build folder\n"
   );
