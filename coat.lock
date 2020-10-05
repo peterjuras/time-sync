@@ -1,3 +1,20 @@
+dependencies:
+  devDependencies:
+    - "@babel/cli"
+    - "@babel/core"
+    - "@babel/preset-env"
+    - "@babel/preset-typescript"
+    - "@types/jest"
+    - "@typescript-eslint/eslint-plugin"
+    - "@typescript-eslint/parser"
+    - babel-jest
+    - eslint
+    - eslint-config-prettier
+    - jest
+    - jest-circus
+    - prettier
+    - rimraf
+    - typescript
 files:
   - hash: >-
       CjAV3UQ+t7erq544SpBjO+HbRPrYx+copUsY6RQXzimScis/Zs3izZyMFQYA26+K2bnMQhErg9F+5Npi04iPGQ==
@@ -23,4 +40,15 @@ files:
   - hash: >-
       li5LAkECzXaUH0j/5vTUQ1YfaMIeFn1S0MlDqKpMc7c0SYXsdC2lzWKVsED8ROL6sjPIjBY1bSVbDwfSwqNw3g==
     path: tsconfig.json
+scripts:
+  - build
+  - "build:babel"
+  - "build:typedefs"
+  - lint
+  - "lint:eslint"
+  - "lint:prettier"
+  - "lint:types"
+  - prebuild
+  - prepare
+  - test
 version: 1

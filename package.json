@@ -2,7 +2,6 @@
   "name": "time-sync",
   "version": "0.0.0-development",
   "author": "Peter Juras <me@peterjuras.com>",
-  "dependencies": {},
   "description": "A JavaScript library to synchronize timers across an application",
   "devDependencies": {
     "@babel/cli": "7.11.6",
@@ -10,8 +9,8 @@
     "@babel/plugin-proposal-class-properties": "7.10.4",
     "@babel/preset-env": "7.11.5",
     "@babel/preset-typescript": "7.10.4",
-    "@coat/cli": "0.0.11",
-    "@coat/template-ts-package": "0.0.10",
+    "@coat/cli": "0.0.13",
+    "@coat/template-ts-package": "0.0.12",
     "@sinonjs/fake-timers": "6.0.1",
     "@types/jest": "26.0.14",
     "@types/sinonjs__fake-timers": "6.0.2",
