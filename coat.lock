@@ -20,14 +20,14 @@ files:
       CjAV3UQ+t7erq544SpBjO+HbRPrYx+copUsY6RQXzimScis/Zs3izZyMFQYA26+K2bnMQhErg9F+5Npi04iPGQ==
     path: .babelrc
   - hash: >-
-      si8wiamoLeldPdq09znIl9CiW7CjcrdohsuPkuOZXRw6NC2ihhxLaOZDoGyRSAwM1IuWYfkAlG2tKKkx6T3skA==
+      kyzgCb9r6PlD1kkhv3RKYV+xCY1h5cjPXQU0sm8lNtUqgiVawJbkCQxcvBe0rFL9UXk3sTLWx+GzGEIGVCLTEA==
     path: .eslintrc
   - hash: >-
       fxSZnVg1JXiEGv1w/4+1LpWhyUWeFgVRnyX8grd7X6S0JOseqVFI+GZS4O8s7QGhF0D2c/RfzdmEEbCDjdrbcw==
     path: .gitignore
   - hash: >-
-      QHEKgQldMPHG2z4M4TgWMtjG51Sjk9sSsjNFBsgPNLXOWdagKOs/EninMt8WCMXgT0fdHEPooI7fTiReuUKfFA==
-    path: jest.config.js
+      8E+XQ5ZNeu7TeSHnwg5DcC4Mu6g4DqZwDXLE/Xe7qX3Nyh3kmFYejudAhkUuvTieOeMElSuI+FmM461P6JLYug==
+    path: jest.config.json
   - once: true
     path: README.md
   - once: true
@@ -35,10 +35,10 @@ files:
   - once: true
     path: src/index.ts
   - hash: >-
-      TwESwha/yeUsLsK5sHTYsMVFGSdfM4QRlCLPWrr/PQIeW6fIGz81LCnOijxrw24q1enaBvJLJXv8SogQ8W1EDQ==
+      Wvn79Ah1EmIDyTVVi4uDZAucomOUsQXNPCqWdj1KXckHWjaLhGHD4rwesjGVVa/0FM9rEvtFq1OsiftbNpA1hw==
     path: tsconfig.build.json
   - hash: >-
-      li5LAkECzXaUH0j/5vTUQ1YfaMIeFn1S0MlDqKpMc7c0SYXsdC2lzWKVsED8ROL6sjPIjBY1bSVbDwfSwqNw3g==
+      mmM9PGwqLSxLRIDBzKFNtJqqM/1Fh/TOzubHlC6su7WHv1peDWQglI014mldKMdHNri6F4wbp5NGN26XCTHkFw==
     path: tsconfig.json
 scripts:
   - build

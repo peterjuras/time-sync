@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "isolatedModules": false,
-    "noEmit": false
+    "noEmit": false,
+    "outDir": "build"
   },
   "exclude": ["**/**/*.test.ts"],
-  "extends": "./tsconfig.json"
+  "extends": "./tsconfig.json",
+  "include": ["src"]
 }
