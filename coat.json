@@ -1,4 +1,11 @@
 {
   "name": "time-sync",
-  "extends": "@coat/template-ts-package"
+  "extends": [
+    [
+      "@coat/template-ts-package",
+      {
+        "compiler": "babel"
+      }
+    ]
+  ]
 }
