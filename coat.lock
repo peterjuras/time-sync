@@ -7,7 +7,6 @@ dependencies:
     - "@types/jest"
     - "@typescript-eslint/eslint-plugin"
     - "@typescript-eslint/parser"
-    - babel-jest
     - eslint
     - eslint-config-prettier
     - jest
