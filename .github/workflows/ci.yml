@@ -11,6 +11,10 @@ jobs:
       - name: Install npm@7
         run: sudo npm i -g npm@7
       - uses: bahmutov/npm-install@v1
+      # Temporary workaround due to a bug in npm@7
+      # See: https://github.com/npm/cli/issues/1905
+      - name: TEMPORARY WORKAROUND run prepare script
+        run: npm run prepare
       - name: Lint
         run: npm run lint
       - name: Test
