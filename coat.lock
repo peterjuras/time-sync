@@ -41,13 +41,12 @@ files:
     path: tsconfig.json
 scripts:
   - build
-  - "build:babel"
-  - "build:typedefs"
+  - build:babel
+  - build:typedefs
   - lint
-  - "lint:eslint"
-  - "lint:prettier"
-  - "lint:types"
+  - lint:eslint
+  - lint:prettier
+  - lint:types
   - prebuild
-  - prepare
   - test
 version: 1

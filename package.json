@@ -9,8 +9,8 @@
     "@babel/plugin-proposal-class-properties": "7.12.1",
     "@babel/preset-env": "7.12.11",
     "@babel/preset-typescript": "7.12.7",
-    "@coat/cli": "0.0.15",
-    "@coat/template-ts-package": "0.0.15",
+    "@coat/cli": "0.0.16",
+    "@coat/template-ts-package": "0.0.17",
     "@sinonjs/fake-timers": "6.0.1",
     "@types/jest": "26.0.20",
     "@types/sinonjs__fake-timers": "6.0.2",
@@ -43,7 +43,6 @@
     "lint:types": "tsc",
     "postbuild": "cp -R scripts .npmignore LICENSE package.json README.md build",
     "prebuild": "rimraf build",
-    "prepare": "node scripts/prepare",
     "prepublishOnly": "node ./scripts/ensure-publish-path",
     "test": "jest",
     "test-ci": "jest --ci --config jest.ci.config.js"
