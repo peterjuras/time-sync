@@ -7,6 +7,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": true,
+    "outDir": "build",
     "strict": true,
     "target": "ESNext"
   }

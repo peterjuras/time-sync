@@ -34,19 +34,19 @@ files:
   - once: true
     path: src/index.ts
   - hash: >-
-      Wvn79Ah1EmIDyTVVi4uDZAucomOUsQXNPCqWdj1KXckHWjaLhGHD4rwesjGVVa/0FM9rEvtFq1OsiftbNpA1hw==
+      dEjl1diD30UVpPa+Eqopj6sUzG4fZFuRB3Yw9DRQMnrlFJzFralwcjSjCph7gJT89UmQiE/UO6zwaoKB7e5jEA==
     path: tsconfig.build.json
   - hash: >-
-      mmM9PGwqLSxLRIDBzKFNtJqqM/1Fh/TOzubHlC6su7WHv1peDWQglI014mldKMdHNri6F4wbp5NGN26XCTHkFw==
+      hJ6j7yCY25tYeYP5U7xfPlPmTWlkI6yoYOoBB2hyYbyPAf+xiYQ+mkX9QWa2tCTFtYyuwsPQ12VZD3AjV5Rylg==
     path: tsconfig.json
 scripts:
   - build
-  - build:babel
-  - build:typedefs
+  - "build:babel"
+  - "build:typedefs"
   - lint
-  - lint:eslint
-  - lint:prettier
-  - lint:types
+  - "lint:eslint"
+  - "lint:prettier"
+  - "lint:types"
   - prebuild
   - test
 version: 1

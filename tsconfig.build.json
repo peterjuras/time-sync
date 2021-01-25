@@ -3,8 +3,7 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "isolatedModules": false,
-    "noEmit": false,
-    "outDir": "build"
+    "noEmit": false
   },
   "exclude": ["**/**/*.test.ts"],
   "extends": "./tsconfig.json",
