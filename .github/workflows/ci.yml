@@ -11,6 +11,8 @@ jobs:
       - name: Install npm@7
         run: sudo npm i -g npm@7
       - uses: bahmutov/npm-install@v1
+      - name: Ensure coat project is in sync
+        run: npx --no-install coat sync --check
       - name: Build
         run: npm run build
       - name: Lint
