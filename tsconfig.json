@@ -8,6 +8,9 @@
     "moduleResolution": "node",
     "noEmit": true,
     "outDir": "build",
+    "paths": {
+      "@sinonjs/fake-timers": ["./node_modules/@types/sinonjs__fake-timers"]
+    },
     "strict": true,
     "target": "ESNext"
   }
