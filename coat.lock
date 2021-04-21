@@ -37,7 +37,7 @@ files:
       dEjl1diD30UVpPa+Eqopj6sUzG4fZFuRB3Yw9DRQMnrlFJzFralwcjSjCph7gJT89UmQiE/UO6zwaoKB7e5jEA==
     path: tsconfig.build.json
   - hash: >-
-      9PlfGws8fcQtufEx4Bf/EXHiX3EwGI41o8F7FSS6PmOk/i+4Ahwyv7dkbFekygWfafbCmizpEeFK8CW2Cq5CeQ==
+      hJ6j7yCY25tYeYP5U7xfPlPmTWlkI6yoYOoBB2hyYbyPAf+xiYQ+mkX9QWa2tCTFtYyuwsPQ12VZD3AjV5Rylg==
     path: tsconfig.json
 scripts:
   - build
