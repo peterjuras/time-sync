@@ -22,7 +22,7 @@ interface CountdownStoredConfig extends SafeCountdownConfig {
   id: number;
   callback: CountdownCallback;
   ms: number;
-  timeout?: number;
+  timeout?: unknown;
 }
 
 function validateCountdownConfig(countdownConfig: CountdownConfig): void {
@@ -150,13 +150,13 @@ export class Countdowns {
 
   public stopAllCountdowns = (): void => {
     Object.keys(this.countdowns).forEach((id: string): void => {
-      clearTimeout(this.countdowns[id].timeout);
+      clearTimeout(this.countdowns[id].timeout as number | undefined);
     });
     this.countdowns = {};
   };
 
   private revalidate = (countdown: CountdownStoredConfig): void => {
-    clearTimeout(countdown.timeout);
+    clearTimeout(countdown.timeout as number | undefined);
 
     const timeLeft = calculateTimeLeft(countdown);
     countdown.callback(timeLeft);
@@ -176,7 +176,7 @@ export class Countdowns {
       return;
     }
 
-    clearTimeout(countdown.timeout);
+    clearTimeout(countdown.timeout as number | undefined);
     delete this.countdowns[id];
   };
 }
