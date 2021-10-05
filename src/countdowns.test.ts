@@ -3,7 +3,7 @@ import FakeTimers from "@sinonjs/fake-timers";
 
 describe("#countdowns", () => {
   const instance = new TimeSync();
-  let clock: FakeTimers.Clock;
+  let clock: FakeTimers.InstalledClock;
 
   beforeEach(() => {
     clock = FakeTimers.install({ now: 10001 });
