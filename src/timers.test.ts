@@ -1,8 +1,9 @@
-import TimeSync from "./index";
+import TimeSync from ".";
+import { Timers } from "./timers";
 import FakeTimers from "@sinonjs/fake-timers";
 
 describe("#timers", () => {
-  const instance = new TimeSync();
+  const instance = new Timers();
   let clock: FakeTimers.InstalledClock;
 
   beforeEach(() => {
@@ -14,7 +15,6 @@ describe("#timers", () => {
   afterEach(() => {
     clock.uninstall();
     instance.removeAllTimers();
-    instance.stopAllCountdowns();
   });
 
   describe("#addTimer", () => {
@@ -290,9 +290,9 @@ describe("#timers", () => {
     });
   });
 
-  describe("#revalidate", () => {
+  describe("#revalidateAllTimers", () => {
     it("should be exported correctly", () => {
-      expect(instance.revalidate).toBeInstanceOf(Function);
+      expect(instance.revalidateAllTimers).toBeInstanceOf(Function);
     });
 
     it("should fire all necessary timers if system clock has changed", () => {
@@ -315,7 +315,7 @@ describe("#timers", () => {
       expect(mockTenSeconds).toHaveBeenCalledTimes(0);
       expect(mockMinute).toHaveBeenCalledTimes(0);
 
-      instance.revalidate();
+      instance.revalidateAllTimers();
       clock.tick(1);
 
       expect(mockSecond).toHaveBeenCalledTimes(1);
@@ -328,7 +328,7 @@ describe("#timers", () => {
       instance.addTimer(mock);
 
       clock.setSystemTime(10250);
-      instance.revalidate();
+      instance.revalidateAllTimers();
 
       clock.tick(750);
       expect(mock).toHaveBeenCalledTimes(1);

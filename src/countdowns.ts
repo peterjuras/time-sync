@@ -111,10 +111,18 @@ export class Countdowns {
     [key: string]: CountdownStoredConfig;
   } = {};
 
-  public createCountdown = (
+  constructor() {
+    this.createCountdown = this.createCountdown.bind(this);
+    this.removeCountdown = this.removeCountdown.bind(this);
+    this.revalidate = this.revalidate.bind(this);
+    this.revalidateAllCountdowns = this.revalidateAllCountdowns.bind(this);
+    this.stopAllCountdowns = this.stopAllCountdowns.bind(this);
+  }
+
+  public createCountdown(
     callback: CountdownCallback,
     countdownConfig: CountdownConfig
-  ): (() => void) => {
+  ): () => void {
     validateCreateCountdownArgs(callback, countdownConfig);
 
     const id = generateId();
@@ -146,16 +154,22 @@ export class Countdowns {
     this.countdowns[id] = newCountdown;
 
     return (): void => this.removeCountdown(id);
-  };
+  }
 
-  public stopAllCountdowns = (): void => {
+  public stopAllCountdowns(): void {
     Object.keys(this.countdowns).forEach((id: string): void => {
       clearTimeout(this.countdowns[id].timeout as number | undefined);
     });
     this.countdowns = {};
-  };
+  }
 
-  private revalidate = (countdown: CountdownStoredConfig): void => {
+  public revalidateAllCountdowns(): void {
+    Object.keys(this.countdowns).forEach((id: string): void => {
+      this.revalidate(this.countdowns[id]);
+    });
+  }
+
+  private revalidate(countdown: CountdownStoredConfig): void {
     clearTimeout(countdown.timeout as number | undefined);
 
     const timeLeft = calculateTimeLeft(countdown);
@@ -168,9 +182,9 @@ export class Countdowns {
     } else {
       this.removeCountdown(countdown.id);
     }
-  };
+  }
 
-  private removeCountdown = (id: number): void => {
+  private removeCountdown(id: number): void {
     const countdown = this.countdowns[id];
     if (!countdown) {
       return;
@@ -178,5 +192,5 @@ export class Countdowns {
 
     clearTimeout(countdown.timeout as number | undefined);
     delete this.countdowns[id];
-  };
+  }
 }

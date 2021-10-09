@@ -1,7 +1,15 @@
+import { Countdowns } from "./countdowns";
 import TimeSync from "./index";
+import { Timers } from "./timers";
+
+jest.mock("./countdowns").mock("./timers");
 
 describe("#TimeSync", () => {
   const instance = new TimeSync();
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   it("should be exported correctly", () => {
     expect(instance).toBeInstanceOf(TimeSync);
@@ -28,9 +36,6 @@ describe("#TimeSync", () => {
   it("should export addTimer correctly", () =>
     expect(instance.addTimer).toBeInstanceOf(Function));
 
-  it("should export revalidate correctly", () =>
-    expect(instance.revalidate).toBeInstanceOf(Function));
-
   it("should export removeAllTimers correctly", () =>
     expect(instance.removeAllTimers).toBeInstanceOf(Function));
 
@@ -48,5 +53,28 @@ describe("#TimeSync", () => {
   it("should export getTimeLeft correctly", () => {
     expect(TimeSync.getTimeLeft).toBeInstanceOf(Function);
     expect(TimeSync.getTimeLeft).toBe(instance.getTimeLeft);
+  });
+
+  describe("#revalidate", () => {
+    it("should export revalidate correctly", () =>
+      expect(instance.revalidate).toBeInstanceOf(Function));
+
+    it("should revalidate all timers", () => {
+      const spy = jest.spyOn(Timers.prototype, "revalidateAllTimers");
+      expect(spy).not.toHaveBeenCalled();
+
+      instance.revalidate();
+
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
+
+    it("should revalidate all countdowns", () => {
+      const spy = jest.spyOn(Countdowns.prototype, "revalidateAllCountdowns");
+      expect(spy).not.toHaveBeenCalled();
+
+      instance.revalidate();
+
+      expect(spy).toHaveBeenCalledTimes(1);
+    });
   });
 });
