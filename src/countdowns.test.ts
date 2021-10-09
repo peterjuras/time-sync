@@ -1,8 +1,9 @@
 import TimeSync from "./index";
+import { Countdowns } from "./countdowns";
 import FakeTimers from "@sinonjs/fake-timers";
 
 describe("#countdowns", () => {
-  const instance = new TimeSync();
+  const instance = new Countdowns();
   let clock: FakeTimers.InstalledClock;
 
   beforeEach(() => {
@@ -11,7 +12,6 @@ describe("#countdowns", () => {
 
   afterEach(() => {
     clock.uninstall();
-    instance.removeAllTimers();
     instance.stopAllCountdowns();
   });
 
