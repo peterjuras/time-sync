@@ -306,4 +306,28 @@ describe("#countdowns", () => {
       expect(instance.stopAllCountdowns).toBeInstanceOf(Function);
     });
   });
+
+  describe("#revalidateAllCountdowns", () => {
+    it("should be exported correctly", () => {
+      expect(instance.revalidateAllCountdowns).toBeInstanceOf(Function);
+    });
+
+    it("should call all countdown callbacks", () => {
+      const mock1 = jest.fn();
+      instance.createCountdown(mock1, { until: 2050 + 10000 });
+      const mock2 = jest.fn();
+      instance.createCountdown(mock2, { until: 3050 + 10000 });
+
+      expect(mock1).not.toHaveBeenCalled();
+      expect(mock2).not.toHaveBeenCalled();
+
+      instance.revalidateAllCountdowns();
+
+      expect(mock1).toHaveBeenCalledTimes(1);
+      expect(mock2).toHaveBeenCalledTimes(1);
+
+      expect(mock1).toHaveBeenLastCalledWith(3);
+      expect(mock2).toHaveBeenLastCalledWith(4);
+    });
+  });
 });

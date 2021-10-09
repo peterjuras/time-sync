@@ -98,15 +98,22 @@ export class Timers {
 
   private nextTick = 0;
 
-  public removeAllTimers = (): void => {
-    this.timers = {};
-    this.revalidate();
-  };
+  constructor() {
+    this.addTimer = this.addTimer.bind(this);
+    this.removeAllTimers = this.removeAllTimers.bind(this);
+    this.removeTimer = this.removeTimer.bind(this);
+    this.revalidateAllTimers = this.revalidateAllTimers.bind(this);
+  }
 
-  public addTimer = (
+  public removeAllTimers(): void {
+    this.timers = {};
+    this.revalidateAllTimers();
+  }
+
+  public addTimer(
     callback: TimeCallback,
     timerConfig: Partial<TimerConfig> = {}
-  ): (() => void) => {
+  ): () => void {
     validateAddTimerArgs(callback, timerConfig);
 
     const id = generateId();
@@ -126,13 +133,13 @@ export class Timers {
     this.timers[id] = newTimer;
 
     if (!this.nextTick || newTimer.nextTick < this.nextTick) {
-      this.revalidate();
+      this.revalidateAllTimers();
     }
 
     return (): void => this.removeTimer(id);
-  };
+  }
 
-  public revalidate = (): void => {
+  public revalidateAllTimers(): void {
     clearTimeout(this.currentTimeout as number | undefined);
     const now = Date.now();
 
@@ -160,11 +167,11 @@ export class Timers {
 
     if (this.nextTick) {
       const nextTickDelta = this.nextTick - Date.now();
-      this.currentTimeout = setTimeout(this.revalidate, nextTickDelta);
+      this.currentTimeout = setTimeout(this.revalidateAllTimers, nextTickDelta);
     }
-  };
+  }
 
-  private removeTimer = (id: number): void => {
+  private removeTimer(id: number): void {
     const timer = this.timers[id];
     if (!timer) {
       return;
@@ -172,7 +179,7 @@ export class Timers {
 
     delete this.timers[id];
     if (timer.nextTick === this.nextTick) {
-      this.revalidate();
+      this.revalidateAllTimers();
     }
-  };
+  }
 }
