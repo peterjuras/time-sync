@@ -10,7 +10,7 @@
     "@babel/preset-env": "7.16.11",
     "@babel/preset-typescript": "7.16.7",
     "@coat/cli": "0.0.25",
-    "@coat/template-ts-package": "0.0.34",
+    "@coat/template-ts-package": "0.0.35",
     "@sinonjs/fake-timers": "9.1.1",
     "@types/jest": "27.4.1",
     "@types/sinonjs__fake-timers": "8.1.1",
