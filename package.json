@@ -12,7 +12,7 @@
     "@coat/cli": "0.0.26",
     "@coat/template-ts-package": "0.0.39",
     "@sinonjs/fake-timers": "9.1.2",
-    "@types/jest": "28.1.1",
+    "@types/jest": "28.1.2",
     "@types/sinonjs__fake-timers": "8.1.2",
     "@typescript-eslint/eslint-plugin": "5.28.0",
     "@typescript-eslint/parser": "5.28.0",
