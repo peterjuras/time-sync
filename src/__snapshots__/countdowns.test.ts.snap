@@ -31,33 +31,33 @@ exports[`#countdowns #createCountdown should throw if for an unknown interval 5`
 exports[`#countdowns #createCountdown should throw if no callback is provided 1`] = `"You need to provide a callback as the first argument to createCountdown"`;
 
 exports[`#countdowns #createCountdown should work with a mix of countdowns 1`] = `
-Array [
-  Array [
+[
+  [
     1,
   ],
-  Array [
+  [
     0,
   ],
 ]
 `;
 
 exports[`#countdowns #createCountdown should work with a mix of countdowns 2`] = `
-Array [
-  Array [
+[
+  [
     2,
   ],
-  Array [
+  [
     1,
   ],
-  Array [
+  [
     0,
   ],
 ]
 `;
 
 exports[`#countdowns #createCountdown should work with a mix of countdowns 3`] = `
-Array [
-  Array [
+[
+  [
     0,
   ],
 ]
