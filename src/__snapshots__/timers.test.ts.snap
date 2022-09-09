@@ -31,216 +31,216 @@ exports[`#timers #addTimer should throw if for an unknown interval 5`] = `"inter
 exports[`#timers #addTimer should throw if no callback is provided 1`] = `"You need to provide a callback as the first argument to addTimer"`;
 
 exports[`#timers #addTimer should work with a mix of timers 1`] = `
-Array [
-  Array [
+[
+  [
     11,
   ],
-  Array [
+  [
     12,
   ],
-  Array [
+  [
     13,
   ],
-  Array [
+  [
     14,
   ],
-  Array [
+  [
     15,
   ],
-  Array [
+  [
     16,
   ],
-  Array [
+  [
     17,
   ],
-  Array [
+  [
     18,
   ],
-  Array [
+  [
     19,
   ],
-  Array [
+  [
     20,
   ],
-  Array [
+  [
     21,
   ],
-  Array [
+  [
     22,
   ],
-  Array [
+  [
     23,
   ],
-  Array [
+  [
     24,
   ],
-  Array [
+  [
     25,
   ],
-  Array [
+  [
     26,
   ],
-  Array [
+  [
     27,
   ],
-  Array [
+  [
     28,
   ],
-  Array [
+  [
     29,
   ],
-  Array [
+  [
     30,
   ],
-  Array [
+  [
     31,
   ],
-  Array [
+  [
     32,
   ],
-  Array [
+  [
     33,
   ],
-  Array [
+  [
     34,
   ],
-  Array [
+  [
     35,
   ],
-  Array [
+  [
     36,
   ],
-  Array [
+  [
     37,
   ],
-  Array [
+  [
     38,
   ],
-  Array [
+  [
     39,
   ],
-  Array [
+  [
     40,
   ],
-  Array [
+  [
     41,
   ],
-  Array [
+  [
     42,
   ],
-  Array [
+  [
     43,
   ],
-  Array [
+  [
     44,
   ],
-  Array [
+  [
     45,
   ],
-  Array [
+  [
     46,
   ],
-  Array [
+  [
     47,
   ],
-  Array [
+  [
     48,
   ],
-  Array [
+  [
     49,
   ],
-  Array [
+  [
     50,
   ],
-  Array [
+  [
     51,
   ],
-  Array [
+  [
     52,
   ],
-  Array [
+  [
     53,
   ],
-  Array [
+  [
     54,
   ],
-  Array [
+  [
     55,
   ],
-  Array [
+  [
     56,
   ],
-  Array [
+  [
     57,
   ],
-  Array [
+  [
     58,
   ],
-  Array [
+  [
     59,
   ],
-  Array [
+  [
     60,
   ],
-  Array [
+  [
     61,
   ],
-  Array [
+  [
     62,
   ],
-  Array [
+  [
     63,
   ],
-  Array [
+  [
     64,
   ],
-  Array [
+  [
     65,
   ],
-  Array [
+  [
     66,
   ],
-  Array [
+  [
     67,
   ],
-  Array [
+  [
     68,
   ],
-  Array [
+  [
     69,
   ],
-  Array [
+  [
     70,
   ],
 ]
 `;
 
 exports[`#timers #addTimer should work with a mix of timers 2`] = `
-Array [
-  Array [
+[
+  [
     20,
   ],
-  Array [
+  [
     30,
   ],
-  Array [
+  [
     40,
   ],
-  Array [
+  [
     50,
   ],
-  Array [
+  [
     60,
   ],
-  Array [
+  [
     70,
   ],
 ]
 `;
 
 exports[`#timers #addTimer should work with a mix of timers 3`] = `
-Array [
-  Array [
+[
+  [
     60,
   ],
 ]
