@@ -11,7 +11,7 @@
     "@babel/preset-typescript": "7.21.5",
     "@coat/cli": "0.0.28",
     "@coat/template-ts-package": "0.0.48",
-    "@sinonjs/fake-timers": "10.2.0",
+    "@sinonjs/fake-timers": "11.0.0",
     "@types/jest": "29.5.2",
     "@types/sinonjs__fake-timers": "8.1.2",
     "@typescript-eslint/eslint-plugin": "5.59.8",
