@@ -30,31 +30,31 @@ describe("#timers", () => {
       expect(() =>
         instance.addTimer(jest.fn(), {
           interval: [] as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
           interval: {} as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
           interval: 123 as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
           interval: "" as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
           interval: "a" as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
     });
 
@@ -62,55 +62,55 @@ describe("#timers", () => {
       expect(() =>
         instance.addTimer(jest.fn(), {
           unit: [] as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
           unit: {} as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
           unit: "" as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
           unit: "a" as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
           unit: "15" as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
           unit: 250.291,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
           unit: 0,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
           unit: -12,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.addTimer(jest.fn(), {
           unit: -12.28,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
     });
 
@@ -168,12 +168,14 @@ describe("#timers", () => {
 
       expect(mock).toHaveBeenCalledTimes(0);
       clock.tick(
-        1000 * 60 * 60 * 24 * 2 - 2 - new Date().getTimezoneOffset() * 60 * 1000
+        1000 * 60 * 60 * 24 * 2 -
+          2 -
+          new Date().getTimezoneOffset() * 60 * 1000,
       );
 
       expect(mock).toHaveBeenCalledTimes(2);
       expect(mock).toHaveBeenLastCalledWith(
-        60 * 60 * 24 * 2 + new Date().getTimezoneOffset() * 60
+        60 * 60 * 24 * 2 + new Date().getTimezoneOffset() * 60,
       );
     });
 
@@ -279,7 +281,7 @@ describe("#timers", () => {
       expect(TimeSync.getCurrentTime(timerConfig)).toBe(timezoneOffset);
       clock.tick(1000 * 60 * 60 * 24 * 2);
       expect(TimeSync.getCurrentTime(timerConfig)).toBe(
-        24 * 60 * 60 * 2 + timezoneOffset
+        24 * 60 * 60 * 2 + timezoneOffset,
       );
     });
   });

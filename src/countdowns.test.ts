@@ -22,7 +22,7 @@ describe("#countdowns", () => {
 
     it("should throw if no callback is provided", () => {
       expect(() =>
-        instance.createCountdown(null as any, { until: 123 })
+        instance.createCountdown(null as any, { until: 123 }),
       ).toThrowErrorMatchingSnapshot();
     });
 
@@ -31,77 +31,77 @@ describe("#countdowns", () => {
         instance.createCountdown(jest.fn(), {
           until: 123,
           interval: [] as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: 123,
           interval: {} as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: 123,
           interval: 123 as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: 123,
           interval: "" as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: 123,
           interval: "a" as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
     });
 
     it("should throw if for an invalid or missing until", () => {
       expect(() =>
-        instance.createCountdown(jest.fn(), {} as any)
+        instance.createCountdown(jest.fn(), {} as any),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: [] as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: {} as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: "" as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: "a" as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: "15" as any,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
 
       expect(() =>
         instance.createCountdown(jest.fn(), {
           until: 250.291,
-        })
+        }),
       ).toThrowErrorMatchingSnapshot();
     });
 
@@ -216,10 +216,10 @@ describe("#countdowns", () => {
 
     it("adding a countdown should throw if the date is in the past", () => {
       expect(() =>
-        instance.createCountdown(jest.fn(), { until: 0 })
+        instance.createCountdown(jest.fn(), { until: 0 }),
       ).toThrowErrorMatchingSnapshot();
       expect(() =>
-        instance.createCountdown(jest.fn(), { until: 1 })
+        instance.createCountdown(jest.fn(), { until: 1 }),
       ).toThrowErrorMatchingSnapshot();
     });
 
@@ -296,7 +296,7 @@ describe("#countdowns", () => {
         interval: TimeSync.DAYS,
       };
       expect(() =>
-        TimeSync.getTimeLeft(countdownConfig)
+        TimeSync.getTimeLeft(countdownConfig),
       ).toThrowErrorMatchingSnapshot();
     });
   });

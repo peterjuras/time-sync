@@ -79,7 +79,7 @@ export function getTimeLeft(countdownConfig: CountdownConfig): number {
 
 function getNextTickDelta(
   { ms, until }: CountdownStoredConfig,
-  time: number
+  time: number,
 ): number {
   const timeMod = time % ms;
   const untilMod = until % ms;
@@ -95,11 +95,11 @@ function getNextTickDelta(
 
 function validateCreateCountdownArgs(
   callback: CountdownCallback,
-  countdownConfig: CountdownConfig
+  countdownConfig: CountdownConfig,
 ): void {
   if (!callback) {
     throw new Error(
-      "You need to provide a callback as the first argument to createCountdown"
+      "You need to provide a callback as the first argument to createCountdown",
     );
   }
 
@@ -121,7 +121,7 @@ export class Countdowns {
 
   public createCountdown(
     callback: CountdownCallback,
-    countdownConfig: CountdownConfig
+    countdownConfig: CountdownConfig,
   ): () => void {
     validateCreateCountdownArgs(callback, countdownConfig);
 
@@ -141,14 +141,14 @@ export class Countdowns {
     const nextTickDelta = getNextTickDelta(newCountdown, now);
     if (newCountdown.until <= now) {
       throw new Error(
-        "until property needs to be in the future. Please ensure you are using a millisecond timestamp!"
+        "until property needs to be in the future. Please ensure you are using a millisecond timestamp!",
       );
     }
 
     newCountdown.timeout = setTimeout(
       this.revalidate,
       nextTickDelta,
-      newCountdown
+      newCountdown,
     );
 
     this.countdowns[id] = newCountdown;

@@ -35,11 +35,11 @@ function validateTimerConfig(timerConfig: Partial<TimerConfig>): void {
 
 function validateAddTimerArgs(
   callback: TimeCallback,
-  timerConfig: Partial<TimerConfig>
+  timerConfig: Partial<TimerConfig>,
 ): void {
   if (!callback) {
     throw new Error(
-      "You need to provide a callback as the first argument to addTimer"
+      "You need to provide a callback as the first argument to addTimer",
     );
   }
 
@@ -85,7 +85,7 @@ export function getCurrentTime(timerConfig: Partial<TimerConfig> = {}): number {
   };
 
   return getUnixTimeStamp(
-    getCurrentTick(getMs(config.interval, config.unit), config.interval)
+    getCurrentTick(getMs(config.interval, config.unit), config.interval),
   );
 }
 
@@ -112,7 +112,7 @@ export class Timers {
 
   public addTimer(
     callback: TimeCallback,
-    timerConfig: Partial<TimerConfig> = {}
+    timerConfig: Partial<TimerConfig> = {},
   ): () => void {
     validateAddTimerArgs(callback, timerConfig);
 
@@ -162,7 +162,7 @@ export class Timers {
         }
         return prev;
       },
-      0
+      0,
     );
 
     if (this.nextTick) {
