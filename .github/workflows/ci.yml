@@ -8,8 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install npm@7
-        run: sudo npm i -g npm@7
       - uses: bahmutov/npm-install@v1
       - name: Build
         run: npm run build
