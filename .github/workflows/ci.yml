@@ -19,6 +19,8 @@ jobs:
           TZ: Europe/Berlin
       - name: Upload test coverage information
         run: bash <(curl -s https://codecov.io/bash)
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload build
         uses: actions/upload-artifact@v4
         with:
