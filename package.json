@@ -4,10 +4,10 @@
   "author": "Peter Juras <me@peterjuras.com>",
   "description": "A JavaScript library to synchronize timers across an application",
   "devDependencies": {
-    "@babel/cli": "7.28.0",
-    "@babel/core": "7.28.0",
+    "@babel/cli": "7.28.3",
+    "@babel/core": "7.28.3",
     "@babel/plugin-proposal-class-properties": "7.18.6",
-    "@babel/preset-env": "7.28.0",
+    "@babel/preset-env": "7.28.3",
     "@babel/preset-typescript": "7.27.1",
     "@sinonjs/fake-timers": "14.0.0",
     "@types/jest": "29.5.14",
