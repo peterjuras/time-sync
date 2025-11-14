@@ -9,7 +9,7 @@
     "@babel/plugin-proposal-class-properties": "7.18.6",
     "@babel/preset-env": "7.28.0",
     "@babel/preset-typescript": "7.27.1",
-    "@sinonjs/fake-timers": "14.0.0",
+    "@sinonjs/fake-timers": "15.0.0",
     "@types/jest": "29.5.14",
     "@types/sinonjs__fake-timers": "8.1.5",
     "@typescript-eslint/eslint-plugin": "8.39.1",
