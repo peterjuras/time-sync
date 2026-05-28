@@ -1,5 +1,6 @@
 {
   "extends": ["config:base", "group:allNonMajor"],
+  "enabled": false,
   "schedule": "on Friday",
   "lockFileMaintenance": {
     "enabled": true,
